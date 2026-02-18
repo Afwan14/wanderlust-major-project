@@ -1,0 +1,19 @@
+<!-- ========================================
+     TOAST NOTIFICATIONS COMPONENT
+     Displays temporary success/error notifications using toast style
+     ======================================== -->
+
+<% // Get flash messages from template variables (set by controller) const
+successMsg = typeof success !== "undefined" ? success : []; const errorMsg =
+typeof error !== "undefined" ? error : []; %>
+
+<div id="toast-container"></div>
+
+<div
+  id="toast-flash-data"
+  data-success="<%= encodeURIComponent(successMsg.length ? String(successMsg) : '') %>"
+  data-error="<%= encodeURIComponent(errorMsg.length ? String(errorMsg) : '') %>"
+  hidden
+></div>
+
+<script src="/js/toast.js"></script>

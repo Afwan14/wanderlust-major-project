@@ -1,0 +1,116 @@
+<% layout("/layouts/boilerplate") %>
+
+<head>
+  <link rel="stylesheet" href="/css/host-reservations.css" />
+</head>
+
+<div class="container my-5 host-reservation-detail-page">
+  <header class="host-detail-header">
+    <h1>Reservation Details</h1>
+    <p>Manage guest reservation and stay details</p>
+    <div class="bookings-divider" aria-hidden="true"></div>
+  </header>
+
+  <section class="host-detail-card host-overview-card">
+    <div class="host-overview-media">
+      <% if (listing?.image?.url) { %>
+      <img src="<%= listing.image.url %>" alt="<%= listing.title %>" />
+      <% } else { %>
+      <div class="host-media-placeholder">Listing image unavailable</div>
+      <% } %>
+    </div>
+
+    <div class="host-overview-content">
+      <div class="host-overview-top">
+        <h2><%= listing?.title || "Listing unavailable" %></h2>
+        <span class="stay-status-pill <%= statusClass %>">
+          <%= statusLabel %>
+        </span>
+      </div>
+
+      <div class="host-overview-grid">
+        <p>
+          <span>Check-in</span>
+          <strong><%= checkInLabel %></strong>
+        </p>
+        <p>
+          <span>Check-out</span>
+          <strong><%= checkOutLabel %></strong>
+        </p>
+        <p>
+          <span>Total amount</span>
+          <strong>
+            ₹
+            <%= Number(reservation.totalPrice).toLocaleString("en-IN") %>
+          </strong>
+        </p>
+        <p>
+          <span>Booking date</span>
+          <strong><%= bookingDate %></strong>
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="host-detail-card host-guest-card">
+    <h3>Guest Information</h3>
+    <div class="host-guest-grid">
+      <p>
+        <span>Full name</span>
+        <strong><%= guestName %></strong>
+      </p>
+      <p>
+        <span>Email</span>
+        <strong><%= guestEmail %></strong>
+      </p>
+      <p>
+        <span>Phone</span>
+        <strong><%= guestPhone %></strong>
+      </p>
+      <p>
+        <span>Member since</span>
+        <strong><%= memberSince %></strong>
+      </p>
+    </div>
+  </section>
+
+  <section class="host-detail-card host-actions-card">
+    <h3>Actions</h3>
+
+    <div class="host-action-buttons">
+      <% if (guestEmail && guestEmail !== "Not available") { %>
+      <a href="mailto:<%= guestEmail %>" class="host-btn host-btn-primary">
+        Contact Guest
+      </a>
+      <% } %>
+
+      <% if (canMarkCompleted) { %>
+      <form
+        method="POST"
+        action="/bookings/host/reservations/<%= reservation._id %>/complete"
+      >
+        <button type="submit" class="host-btn host-btn-secondary">
+          Mark as Completed
+        </button>
+      </form>
+      <% } %>
+
+      <% if (canCancel) { %>
+      <form
+        method="POST"
+        action="/bookings/host/reservations/<%= reservation._id %>/cancel"
+      >
+        <button type="submit" class="host-btn host-btn-muted">
+          Cancel Booking
+        </button>
+      </form>
+      <% } %>
+    </div>
+
+    <% if (!canMarkCompleted && !canCancel) { %>
+    <p class="host-action-note">
+      No manual actions are available for this reservation.
+    </p>
+    <% } %>
+  </section>
+</div>

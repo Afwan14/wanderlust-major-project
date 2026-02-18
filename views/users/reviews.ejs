@@ -1,0 +1,107 @@
+<% layout("/layouts/boilerplate") %>
+
+<head>
+  <link rel="stylesheet" href="/css/reviews.css" />
+</head>
+
+<div class="reviews-page-container">
+  <!-- Breadcrumb -->
+  <div class="breadcrumb-section">
+    <a href="/profile" class="breadcrumb-link">Profile</a>
+    <span class="breadcrumb-separator">›</span>
+    <span class="breadcrumb-current">Reviews</span>
+  </div>
+
+  <!-- Main Title -->
+  <h1 id="pageTitle" class="page-title">Reviews by you</h1>
+
+  <!-- Tabs Navigation -->
+  <div class="reviews-tabs">
+    <a href="#" class="tab-item" data-tab="about">Reviews about you</a>
+    <a href="#" class="tab-item active" data-tab="by-you">Reviews by you</a>
+  </div>
+
+  <!-- Reviews About You Tab -->
+  <div id="about-section" class="tab-content d-none">
+    <!-- Past Reviews About You -->
+    <div class="reviews-section">
+      <h2 class="section-title">Past reviews</h2>
+
+      <% if (!reviewsAboutUser || reviewsAboutUser.length === 0) { %>
+      <p class="section-description">No one has reviewed you yet.</p>
+      <% } else { %>
+      <div class="reviews-list">
+        <% reviewsAboutUser.forEach(review => { %>
+        <div class="review-item">
+          <div class="review-header">
+            <div class="reviewer-info">
+              <div class="reviewer-avatar">
+                <%= review.author.username.charAt(0).toUpperCase() %>
+              </div>
+              <div class="reviewer-details">
+                <h4 class="reviewer-name"><%= review.author.username %></h4>
+                <p class="review-listing"><%= review.listing.title %></p>
+              </div>
+            </div>
+            <div class="review-rating">
+              <span class="stars">
+                <% for (let i = 0; i < review.overall; i++) { %>⭐<% } %>
+              </span>
+              <p class="rating-text"><%= review.overall %> stars</p>
+            </div>
+          </div>
+          <p class="review-comment"><%= review.comment %></p>
+        </div>
+        <% }) %>
+      </div>
+      <% } %>
+    </div>
+  </div>
+
+  <!-- Reviews By You Tab -->
+  <div id="by-you-section" class="tab-content active">
+    <!-- Reviews to Write Section -->
+    <div class="reviews-section">
+      <h2 class="section-title">Reviews to write</h2>
+      <p class="section-description">
+        Nobody to review right now. Looks like it's time for another trip!
+      </p>
+    </div>
+
+    <!-- Past Reviews Section -->
+    <div class="reviews-section mt-5">
+      <h2 class="section-title">Past reviews you've written</h2>
+
+      <% if (!reviewsWritten || reviewsWritten.length === 0) { %>
+      <p class="section-description">You have not written any reviews yet.</p>
+      <% } else { %>
+      <div class="reviews-list">
+        <% reviewsWritten.forEach(review => { %>
+        <div class="review-item">
+          <div class="review-header">
+            <div class="listing-info">
+              <a
+                href="/listings/<%= review.listing._id %>"
+                class="listing-title"
+              >
+                <h4><%= review.listing.title %></h4>
+              </a>
+              <p class="review-location"><%= review.listing.location %></p>
+            </div>
+            <div class="review-rating">
+              <span class="stars">
+                <% for (let i = 0; i < review.overall; i++) { %>⭐<% } %>
+              </span>
+              <p class="rating-text"><%= review.overall %> stars</p>
+            </div>
+          </div>
+          <p class="review-comment"><%= review.comment %></p>
+        </div>
+        <% }) %>
+      </div>
+      <% } %>
+    </div>
+  </div>
+</div>
+
+<script src="/js/reviews.js"></script>

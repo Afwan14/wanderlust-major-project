@@ -1,3 +1,8 @@
+/* ========================================
+   STARABILITY RATING - DISPLAY STYLES
+   ======================================== */
+
+/* Base rating display container */
 .starability-result {
   position: relative;
   width: 150px;
@@ -7,8 +12,9 @@
   color: transparent;
 }
 
+/* Filled stars overlay for rating display */
 .starability-result:after {
-  content: ' ';
+  content: " ";
   position: absolute;
   left: 0;
   height: 30px;
@@ -16,37 +22,50 @@
   background-position: 0 -30px;
 }
 
+/* Rating levels - Adjust filled star width based on rating value */
 .starability-result[data-rating="5"]::after {
-  width: 150px;
+  width: 150px; /* 5 stars full */
 }
 
 .starability-result[data-rating="4"]::after {
-  width: 120px;
+  width: 120px; /* 4 stars full */
 }
 
 .starability-result[data-rating="3"]::after {
-  width: 90px;
+  width: 90px; /* 3 stars full */
 }
 
 .starability-result[data-rating="2"]::after {
-  width: 60px;
+  width: 60px; /* 2 stars full */
 }
 
 .starability-result[data-rating="1"]::after {
-  width: 30px;
+  width: 30px; /* 1 star full */
 }
 
-@media screen and (-webkit-min-device-pixel-ratio: 2), screen and (min-resolution: 192dpi) {
+/* ========================================
+   HIGH-DPI DISPLAY SUPPORT (Retina)
+   ======================================== */
+
+@media screen and (-webkit-min-device-pixel-ratio: 2),
+  screen and (min-resolution: 192dpi) {
+  /* Higher resolution star icons for Retina displays */
   .starability-result {
     background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADwAAAB4CAMAAACZ62E6AAABAlBMVEUAAACZmZmampr2vSObm5v/yiufn5+ampr1viP1viSZmZn2viOZmZmampqampr2viSampqampqcnJz5vyScnJz3wSf/wyn/xiujo6Oqqqr/0C/1vSOampr2viP2viOampr2viP2vST2viOampqampqampr1vyP3viSampr2vyT4vyX3viSbm5ubm5v5wCT8xSmgoKCampqampr3vyb2wiWenp72viOampqZmZmampr2viP2viP1viSampqbm5v2vyT3viObm5v4vyadnZ34wSSbm5v2viSZmZn2viP2vST2viP2viT1viOZmZn2viT2viX3viT3vyb2vyOZmZn1vSOZmZlNN+fKAAAAVHRSTlMA9uz4PQwS8O7r5+fTw4yMelw2MB0dFRELBgbS+/Hfu7uxqKWdg4N7ZmZMPi8pKRgPs0w7Nhb14drKw6Gck21tXkNDIyMZ1rDLycTBtaqVknlfV0sGP8ZwAAADW0lEQVRYw9zWvYqDQBSG4TPDoCAqKhYKQgoVLFaIgZCkiCBBUqVazv3fyu4aEXWdM85Uy779A+LP58AfTQgw73AwtxFiZIwbxMbUfuB3H4b49YNfZrbGodoI52+cm9hH9sbZwwAXOFbo2zjDsSzWxnecuuvaM8MpdtbEPs7y9azF5phZWrjERaWOPdpLbB81cICrgv3W4mvMLbU6RmFQeA5u5HhFEEbHLdWLsMxvHJXxW16Goh+ZqPyny1Az5j79SsCJoWHsBNAxQ9sNF26bWFuMC8v1LY+mmeTadjaqtaNnnXoxWBcde1nNWnzdb68xrOqvu22/MTzuPutujpJ122NvluSb8tTWk85CclDZQwLS0oa2TQpEKacsJy0kSJaQOKJxROKKxhWJ7zS+k9ijsUdim8Y2ZWNUFBP4pMKfOv8onX9WrsI5gd3VVLXtatxcuU0znGUHCUAS2DgrS6mT6hTzrXEjfIZj5Dk2xKkihqm4wKlQfQRqalhUP9UHo3FIPAG/Et44JVLsDDf0JHmB3OEByOwZES8hSAsviGjBdh3ylh6plmMnW4IyAUVJWcE/76vTell1EIaiMBwIAcWBA9GC0lIdKFXQQUsHVVCklN7ojf3+z3JOxYqK2TH555+K6CJJQtRbr9XtDmCnjH0AX9Va8J+liIMvDtRsCk2pEs6hKVexR2g7KuDihwt5a9MfprY0fkLXU9ZmFLpoJolN6GXKWWfZx0tHCocwKJSxC22ItYUEjmBUJHFjfYz1xQxlfaLiZsBExq2IPtbkNbLtOwwuGgjTLkH43mYtSzam7+1Bsr3nm5uExBQUozEh9V7N7uvmwZcqdpm0C6vJW63bZEuXtbrV2zpDzhrpYLBWMnY1mjV7JWFtMio7zbWniWFxvHnWm1yGxXmOPXP+L3YV2ysjnNhaZNeMcHPvuL27BMnVMaujljBAYyje4niH4g2ONyh+4PiB4gOODyjWcKxh1gZBNoJjEY4R/BLhF4IDEQ4QPBoEoyxH4+bxrUsHyxwxQlg0WHXqYifVLmo67cKY/UtaXFxBV26TLjuHrkp8BPJTMij1xQejdkgO24nf7dBOCRcbzQuNOR9Qs64GzzrfQa8It2oFAA6Zrga9xEeq1KHmLUHIiCAWInsg1x/MLqkMsItF8QAAAABJRU5ErkJggg==");
     background-size: 30px auto;
   }
+
   .starability-result:after {
     background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADwAAAB4CAMAAACZ62E6AAABAlBMVEUAAACZmZmampr2vSObm5v/yiufn5+ampr1viP1viSZmZn2viOZmZmampqampr2viSampqampqcnJz5vyScnJz3wSf/wyn/xiujo6Oqqqr/0C/1vSOampr2viP2viOampr2viP2vST2viOampqampqampr1vyP3viSampr2vyT4vyX3viSbm5ubm5v5wCT8xSmgoKCampqampr3vyb2wiWenp72viOampqZmZmampr2viP2viP1viSampqbm5v2vyT3viObm5v4vyadnZ34wSSbm5v2viSZmZn2viP2vST2viP2viT1viOZmZn2viT2viX3viT3vyb2vyOZmZn1vSOZmZlNN+fKAAAAVHRSTlMA9uz4PQwS8O7r5+fTw4yMelw2MB0dFRELBgbS+/Hfu7uxqKWdg4N7ZmZMPi8pKRgPs0w7Nhb14drKw6Gck21tXkNDIyMZ1rDLycTBtaqVknlfV0sGP8ZwAAADW0lEQVRYw9zWvYqDQBSG4TPDoCAqKhYKQgoVLFaIgZCkiCBBUqVazv3fyu4aEXWdM85Uy779A+LP58AfTQgw73AwtxFiZIwbxMbUfuB3H4b49YNfZrbGodoI52+cm9hH9sbZwwAXOFbo2zjDsSzWxnecuuvaM8MpdtbEPs7y9azF5phZWrjERaWOPdpLbB81cICrgv3W4mvMLbU6RmFQeA5u5HhFEEbHLdWLsMxvHJXxW16Goh+ZqPyny1Az5j79SsCJoWHsBNAxQ9sNF26bWFuMC8v1LY+mmeTadjaqtaNnnXoxWBcde1nNWnzdb68xrOqvu22/MTzuPutujpJ122NvluSb8tTWk85CclDZQwLS0oa2TQpEKacsJy0kSJaQOKJxROKKxhWJ7zS+k9ijsUdim8Y2ZWNUFBP4pMKfOv8onX9WrsI5gd3VVLXtatxcuU0znGUHCUAS2DgrS6mT6hTzrXEjfIZj5Dk2xKkihqm4wKlQfQRqalhUP9UHo3FIPAG/Et44JVLsDDf0JHmB3OEByOwZES8hSAsviGjBdh3ylh6plmMnW4IyAUVJWcE/76vTell1EIaiMBwIAcWBA9GC0lIdKFXQQUsHVVCklN7ojf3+z3JOxYqK2TH555+K6CJJQtRbr9XtDmCnjH0AX9Va8J+liIMvDtRsCk2pEs6hKVexR2g7KuDihwt5a9MfprY0fkLXU9ZmFLpoJolN6GXKWWfZx0tHCocwKJSxC22ItYUEjmBUJHFjfYz1xQxlfaLiZsBExq2IPtbkNbLtOwwuGgjTLkH43mYtSzam7+1Bsr3nm5uExBQUozEh9V7N7uvmwZcqdpm0C6vJW63bZEuXtbrV2zpDzhrpYLBWMnY1mjV7JWFtMio7zbWniWFxvHnWm1yGxXmOPXP+L3YV2ysjnNhaZNeMcHPvuL27BMnVMaujljBAYyje4niH4g2ONyh+4PiB4gOODyjWcKxh1gZBNoJjEY4R/BLhF4IDEQ4QPBoEoyxH4+bxrUsHyxwxQlg0WHXqYifVLmo67cKY/UtaXFxBV26TLjuHrkp8BPJTMij1xQejdkgO24nf7dBOCRcbzQuNOR9Qs64GzzrfQa8It2oFAA6Zrga9xEeq1KHmLUHIiCAWInsg1x/MLqkMsItF8QAAAABJRU5ErkJggg==");
     background-size: 30px auto;
   }
 }
 
+/* ========================================
+   INTERACTIVE RATING - INPUT & LABELS
+   ======================================== */
+
+/* Container for interactive rating widget */
 .starability-slot {
   display: block;
   position: relative;
@@ -56,12 +75,14 @@
   border: none;
 }
 
+/* Hide radio buttons visually but keep them accessible */
 .starability-slot > input {
   position: absolute;
   margin-right: -100%;
   opacity: 0;
 }
 
+/* Show filled stars when option is checked or focused */
 .starability-slot > input:checked ~ label,
 .starability-slot > input:focus ~ label {
   background-position: 0 0;
@@ -72,10 +93,12 @@
   background-position: 0 -30px;
 }
 
+/* Prevent cursor change for disabled inputs */
 .starability-slot > input[disabled]:hover + label {
   cursor: default;
 }
 
+/* Hover effects for non-disabled stars */
 .starability-slot > input:not([disabled]):hover ~ label {
   background-position: 0 0;
 }
@@ -88,10 +111,12 @@
   opacity: 1;
 }
 
+/* Focus outline for keyboard navigation */
 .starability-slot > input:focus + label {
   outline: 1px dotted #999;
 }
 
+/* Accessibility focus ring */
 .starability-slot .starability-focus-ring {
   position: absolute;
   left: 0;
@@ -106,6 +131,11 @@
   opacity: 1;
 }
 
+/* ========================================
+   STAR LABELS & VISUAL EFFECTS
+   ======================================== */
+
+/* Individual star label styling */
 .starability-slot > label {
   position: relative;
   display: inline-block;
@@ -120,8 +150,9 @@
   background-position: 0 -30px;
 }
 
+/* Pseudo-element for hover effect preview */
 .starability-slot > label::before {
-  content: '';
+  content: "";
   position: absolute;
   display: block;
   height: 30px;
@@ -131,6 +162,7 @@
   opacity: 0;
 }
 
+/* Positioning pseudo-elements for each star (5-1) */
 .starability-slot > label:nth-of-type(5)::before {
   width: 120px;
   left: -120px;
@@ -156,25 +188,40 @@
   left: 0px;
 }
 
-@media screen and (-webkit-min-device-pixel-ratio: 2), screen and (min-resolution: 192dpi) {
+/* ========================================
+   HIGH-DPI LABELS & RETINA SUPPORT
+   ======================================== */
+
+@media screen and (-webkit-min-device-pixel-ratio: 2),
+  screen and (min-resolution: 192dpi) {
+  /* Higher resolution star icons for Retina displays */
   .starability-slot > label {
     background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADwAAAB4CAMAAACZ62E6AAABAlBMVEUAAACZmZmampr2vSObm5v/yiufn5+ampr1viP1viSZmZn2viOZmZmampqampr2viSampqampqcnJz5vyScnJz3wSf/wyn/xiujo6Oqqqr/0C/1vSOampr2viP2viOampr2viP2vST2viOampqampqampr1vyP3viSampr2vyT4vyX3viSbm5ubm5v5wCT8xSmgoKCampqampr3vyb2wiWenp72viOampqZmZmampr2viP2viP1viSampqbm5v2vyT3viObm5v4vyadnZ34wSSbm5v2viSZmZn2viP2vST2viP2viT1viOZmZn2viT2viX3viT3vyb2vyOZmZn1vSOZmZlNN+fKAAAAVHRSTlMA9uz4PQwS8O7r5+fTw4yMelw2MB0dFRELBgbS+/Hfu7uxqKWdg4N7ZmZMPi8pKRgPs0w7Nhb14drKw6Gck21tXkNDIyMZ1rDLycTBtaqVknlfV0sGP8ZwAAADW0lEQVRYw9zWvYqDQBSG4TPDoCAqKhYKQgoVLFaIgZCkiCBBUqVazv3fyu4aEXWdM85Uy779A+LP58AfTQgw73AwtxFiZIwbxMbUfuB3H4b49YNfZrbGodoI52+cm9hH9sbZwwAXOFbo2zjDsSzWxnecuuvaM8MpdtbEPs7y9azF5phZWrjERaWOPdpLbB81cICrgv3W4mvMLbU6RmFQeA5u5HhFEEbHLdWLsMxvHJXxW16Goh+ZqPyny1Az5j79SsCJoWHsBNAxQ9sNF26bWFuMC8v1LY+mmeTadjaqtaNnnXoxWBcde1nNWnzdb68xrOqvu22/MTzuPutujpJ122NvluSb8tTWk85CclDZQwLS0oa2TQpEKacsJy0kSJaQOKJxROKKxhWJ7zS+k9ijsUdim8Y2ZWNUFBP4pMKfOv8onX9WrsI5gd3VVLXtatxcuU0znGUHCUAS2DgrS6mT6hTzrXEjfIZj5Dk2xKkihqm4wKlQfQRqalhUP9UHo3FIPAG/Et44JVLsDDf0JHmB3OEByOwZES8hSAsviGjBdh3ylh6plmMnW4IyAUVJWcE/76vTell1EIaiMBwIAcWBA9GC0lIdKFXQQUsHVVCklN7ojf3+z3JOxYqK2TH555+K6CJJQtRbr9XtDmCnjH0AX9Va8J+liIMvDtRsCk2pEs6hKVexR2g7KuDihwt5a9MfprY0fkLXU9ZmFLpoJolN6GXKWWfZx0tHCocwKJSxC22ItYUEjmBUJHFjfYz1xQxlfaLiZsBExq2IPtbkNbLtOwwuGgjTLkH43mYtSzam7+1Bsr3nm5uExBQUozEh9V7N7uvmwZcqdpm0C6vJW63bZEuXtbrV2zpDzhrpYLBWMnY1mjV7JWFtMio7zbWniWFxvHnWm1yGxXmOPXP+L3YV2ysjnNhaZNeMcHPvuL27BMnVMaujljBAYyje4niH4g2ONyh+4PiB4gOODyjWcKxh1gZBNoJjEY4R/BLhF4IDEQ4QPBoEoyxH4+bxrUsHyxwxQlg0WHXqYifVLmo67cKY/UtaXFxBV26TLjuHrkp8BPJTMij1xQejdkgO24nf7dBOCRcbzQuNOR9Qs64GzzrfQa8It2oFAA6Zrga9xEeq1KHmLUHIiCAWInsg1x/MLqkMsItF8QAAAABJRU5ErkJggg==");
     background-size: 30px auto;
   }
 }
 
+/* ========================================
+   ACCESSIBILITY - HIGH CONTRAST MODE
+   ======================================== */
+
+/* Support for high contrast/accessible mode */
 @media screen and (-ms-high-contrast: active) {
   .starability-slot {
     width: auto;
   }
+
   .starability-slot > input {
     position: static;
     margin-right: 0;
     opacity: 1;
   }
+
   .starability-slot .input-no-rate {
     display: none;
   }
+
+  /* Display as regular text in high contrast mode */
   .starability-slot > label {
     display: inline;
     float: none;
@@ -184,14 +231,117 @@
     color: inherit;
     background: none;
   }
-  .starability-slot > label::before, .starability-slot > label::after {
+
+  /* Hide decorative pseudo-elements */
+  .starability-slot > label::before,
+  .starability-slot > label::after {
     display: none;
   }
 }
 
+/* ========================================
+   ANIMATIONS & TRANSITIONS
+   ======================================== */
+
+/* Smooth transition for star selection */
 .starability-slot > input:checked ~ label,
 .starability-slot > input:hover ~ label,
 .starability-slot > input:focus ~ label {
-  -webkit-transition: background-position .7s;
-  transition: background-position .7s;
+  -webkit-transition: background-position 0.7s;
+  transition: background-position 0.7s;
+}
+
+/* ===== AIRBNB STYLE RATING ===== */
+
+.rating-summary {
+  border-top: 1px solid #eee;
+  border-bottom: 1px solid #eee;
+}
+
+/* HERO */
+.rating-hero-inner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 3rem;
+}
+
+.rating-score-xl {
+  font-size: 5rem;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.rating-title {
+  font-weight: 600;
+  margin-top: 0.75rem;
+}
+
+.rating-subtitle {
+  color: #666;
+  max-width: 420px;
+  margin: 0.5rem auto 0;
+  font-size: 0.95rem;
+}
+
+/* LAURELS */
+.laurel {
+  width: 60px;
+  height: 120px;
+  background: url("/images/laurel.png") center / contain no-repeat;
+  opacity: 0.85;
+}
+
+.laurel.right {
+  transform: scaleX(-1);
+}
+
+/* BREAKDOWN */
+.rating-breakdown {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 2rem;
+  align-items: center;
+  margin-top: 2.5rem;
+}
+
+.rating-item {
+  border-left: 1px solid #eee;
+  padding-left: 1.5rem;
+  text-align: center;
+}
+
+.rating-item:first-child {
+  border-left: none;
+  text-align: left;
+}
+
+.rating-item p {
+  font-size: 0.9rem;
+  color: #555;
+  margin-bottom: 0.4rem;
+}
+
+.rating-item strong {
+  font-size: 1.1rem;
+}
+
+.rating-item i {
+  display: block;
+  margin-top: 0.6rem;
+  font-size: 1.2rem;
+  color: #222;
+}
+
+/* BARS */
+.rating-bars span {
+  display: block;
+  height: 6px;
+  background: #ddd;
+  margin-bottom: 4px;
+  border-radius: 4px;
+}
+
+.rating-bars span.active {
+  background: #222;
 }

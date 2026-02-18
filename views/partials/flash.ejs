@@ -1,0 +1,42 @@
+<!-- ========================================
+     FLASH MESSAGES COMPONENT
+     Displays temporary success/error notifications from server
+     ======================================== -->
+
+<% // Get flash messages from template variables (set by controller) const
+successMsg = typeof success !== "undefined" ? success : []; const errorMsg =
+typeof error !== "undefined" ? error : []; %>
+
+<!-- Success Alert - Displays if success message exists -->
+<% if (successMsg.length) { %>
+<div
+  class="alert alert-success alert-dismissible fade show col-10 offset-1 col-md-6 offset-md-3 mt-3 flash-alert"
+  role="alert"
+>
+  <%= successMsg %>
+  <!-- Dismiss button - Removes alert when clicked -->
+  <button
+    type="button"
+    class="btn-close"
+    data-bs-dismiss="alert"
+    aria-label="Close"
+  ></button>
+</div>
+<% } %>
+
+<!-- Error Alert - Displays if error message exists -->
+<% if (errorMsg.length) { %>
+<div
+  class="alert alert-danger alert-dismissible fade show col-10 offset-1 col-md-6 offset-md-3 mt-3 flash-alert"
+  role="alert"
+>
+  <%= errorMsg %>
+  <!-- Dismiss button - Removes alert when clicked -->
+  <button
+    type="button"
+    class="btn-close"
+    data-bs-dismiss="alert"
+    aria-label="Close"
+  ></button>
+</div>
+<% } %>

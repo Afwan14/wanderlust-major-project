@@ -1,0 +1,261 @@
+/* ======================================================
+   HOST RESERVATIONS - PREMIUM DASHBOARD
+====================================================== */
+
+.host-reservations-page,
+.host-reservation-detail-page {
+  background: #f8f6f2;
+  border-radius: 28px;
+  padding: 48px 40px;
+}
+
+.host-reservation-card {
+  border-radius: 22px;
+}
+
+.host-reservation-top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
+.host-reservation-top .stay-card-title {
+  font-family: "Playfair Display", "Times New Roman", serif;
+  font-size: 1.4rem;
+  margin: 0;
+}
+
+.host-meta-grid {
+  margin-bottom: 20px;
+}
+
+.meta-muted {
+  color: #6b6b6b;
+  font-weight: 500;
+}
+
+.host-reservation-footer {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: #7d6230;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.host-reservation-card:hover .host-reservation-footer {
+  color: #5d4520;
+}
+
+.view-details-link {
+  font-size: 0.92rem;
+}
+
+/* ======================================================
+   HOST RESERVATION DETAIL
+====================================================== */
+
+.host-detail-header {
+  margin-bottom: 32px;
+}
+
+.host-detail-header h1 {
+  font-family: "Playfair Display", "Times New Roman", serif;
+  font-size: 2.8rem;
+  font-weight: 700;
+  margin: 0 0 8px;
+}
+
+.host-detail-header p {
+  margin: 0;
+  color: #6b6b6b;
+}
+
+.host-detail-card {
+  background: #ffffff;
+  border-radius: 22px;
+  padding: 28px;
+  box-shadow:
+    0 2px 8px rgba(0, 0, 0, 0.04),
+    0 12px 30px rgba(0, 0, 0, 0.06);
+  margin-bottom: 24px;
+}
+
+.host-overview-card {
+  display: grid;
+  grid-template-columns: 320px minmax(0, 1fr);
+  gap: 24px;
+}
+
+.host-overview-media {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  border-radius: 18px;
+  overflow: hidden;
+  background: #f3efe8;
+}
+
+.host-overview-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.host-overview-card:hover .host-overview-media img {
+  transform: scale(1.03);
+}
+
+.host-media-placeholder {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #6b6b6b;
+  font-size: 0.92rem;
+}
+
+.host-overview-content {
+  display: grid;
+  gap: 20px;
+}
+
+.host-overview-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 16px;
+}
+
+.host-overview-top h2 {
+  margin: 0;
+  font-family: "Playfair Display", "Times New Roman", serif;
+  font-size: 1.9rem;
+  font-weight: 700;
+}
+
+.host-overview-grid,
+.host-guest-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.host-overview-grid p,
+.host-guest-grid p {
+  margin: 0;
+  padding: 14px 16px;
+  background: #faf8f4;
+  border-radius: 16px;
+  display: grid;
+  gap: 6px;
+}
+
+.host-overview-grid p span,
+.host-guest-grid p span {
+  font-size: 0.74rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #8a8a8a;
+}
+
+.host-overview-grid p strong,
+.host-guest-grid p strong {
+  font-size: 0.95rem;
+  color: #2a2a2a;
+}
+
+.host-guest-card h3,
+.host-actions-card h3 {
+  margin: 0 0 16px;
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #2a2a2a;
+}
+
+.host-action-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.host-btn {
+  border: none;
+  border-radius: 999px;
+  padding: 10px 20px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.host-btn-primary {
+  background: #e8d8b6;
+  color: #5d4520;
+}
+
+.host-btn-primary:hover {
+  background: #ddcb9f;
+  color: #4f3919;
+  transform: translateY(-1px);
+}
+
+.host-btn-secondary {
+  background: #edf4ee;
+  color: #3d6a50;
+}
+
+.host-btn-secondary:hover {
+  background: #e3efe5;
+  transform: translateY(-1px);
+}
+
+.host-btn-muted {
+  background: #f4ecec;
+  color: #925f5f;
+}
+
+.host-btn-muted:hover {
+  background: #ecdede;
+  transform: translateY(-1px);
+}
+
+.host-action-note {
+  margin: 12px 0 0;
+  color: #6b6b6b;
+  font-size: 0.92rem;
+}
+
+@media (max-width: 992px) {
+  .host-reservations-page,
+  .host-reservation-detail-page {
+    padding: 40px 24px;
+    border-radius: 24px;
+  }
+
+  .host-overview-card {
+    grid-template-columns: 1fr;
+  }
+
+  .host-overview-media {
+    aspect-ratio: 16 / 9;
+  }
+}
+
+@media (max-width: 768px) {
+  .host-detail-header h1 {
+    font-size: 2.2rem;
+  }
+
+  .host-overview-grid,
+  .host-guest-grid {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .host-detail-card {
+    padding: 22px;
+  }
+}

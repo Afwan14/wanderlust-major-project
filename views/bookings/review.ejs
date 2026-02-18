@@ -1,0 +1,121 @@
+<% layout("/layouts/boilerplate") %>
+<head>
+  <link rel="stylesheet" href="/css/review-form.css" />
+</head>
+
+<div
+  id="reviewPageData"
+  data-listing-id="<%= listing._id %>"
+  data-rating-data="<%- encodeURIComponent(JSON.stringify({
+    cleanliness: ratingData.cleanliness || [],
+    accuracy: ratingData.accuracy || [],
+    checkIn: ratingData.checkIn || [],
+    communication: ratingData.communication || [],
+    location: ratingData.location || [],
+    value: ratingData.value || []
+  })) %>"
+  hidden
+></div>
+
+<section class="review-page review-form-section">
+  <div class="review-page-container">
+    <div class="review-page-card">
+      <div class="review-page-top text-center">
+        <p class="review-property"><%= listing.title %></p>
+        <h2 class="review-page-title">Share your experience</h2>
+        <p class="review-page-subtitle">
+          Your insights help future guests discover exceptional stays.
+        </p>
+      </div>
+
+      <form
+        id="reviewForm"
+        class="review-form"
+        action="/listings/<%= listing._id %>/reviews"
+        method="POST"
+        novalidate
+      >
+        <div class="review-block review-overall">
+          <h3 class="review-block-title">Overall Experience</h3>
+          <fieldset
+            class="star-rating-input overall-rating-input"
+            aria-label="Overall experience"
+          >
+            <% for (let i = 5; i >= 1; i--) { %>
+            <input
+              type="radio"
+              id="overall-<%= i %>"
+              name="overallRating"
+              value="<%= i %>"
+              class="star-input"
+            />
+            <label for="overall-<%= i %>" class="star-label">
+              <i class="fa-solid fa-star"></i>
+            </label>
+            <% } %>
+          </fieldset>
+          <div class="invalid-feedback review-inline d-none" id="ratingError">
+            Please select an overall rating.
+          </div>
+        </div>
+
+        <div class="review-block review-categories">
+          <h3 class="review-block-title">Refine Your Experience (Optional)</h3>
+
+          <% const categories = [
+            { key: "cleanliness", label: "Cleanliness" },
+            { key: "communication", label: "Communication" },
+            { key: "accuracy", label: "Comfort" },
+            { key: "location", label: "Location" },
+            { key: "value", label: "Value" },
+          ]; %>
+
+          <div class="category-rating-list">
+            <% categories.forEach(cat => { %>
+            <div class="category-rating-row">
+              <span class="category-label"><%= cat.label %></span>
+
+              <fieldset class="star-rating-input" aria-label="<%= cat.label %>">
+                <% for (let i = 5; i >= 1; i--) { %>
+                <input
+                  type="radio"
+                  id="<%= cat.key %>-<%= i %>"
+                  name="review[<%= cat.key %>]"
+                  value="<%= i %>"
+                  class="star-input"
+                />
+                <label for="<%= cat.key %>-<%= i %>" class="star-label">
+                  <i class="fa-solid fa-star"></i>
+                </label>
+                <% } %>
+              </fieldset>
+            </div>
+            <% }) %>
+          </div>
+        </div>
+
+        <div class="review-block review-text">
+          <h3 class="review-block-title">Your Words</h3>
+          <textarea
+            name="review[comment]"
+            class="review-textarea"
+            rows="6"
+            placeholder="What made your stay memorable?"
+            required
+          ></textarea>
+          <div class="invalid-feedback review-inline d-none" id="commentError">
+            Please share a few words about your stay.
+          </div>
+        </div>
+
+        <div class="review-submit">
+          <button class="btn btn-submit-review" type="submit">
+            Share Experience
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>
+
+<script src="/js/review.js"></script>

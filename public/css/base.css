@@ -1,0 +1,92 @@
+/* ======================================================
+  BODY & LAYOUT
+====================================================== */
+
+@import url("https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600&family=Inter:wght@300;400;500&display=swap");
+
+:root {
+  --wl-font-body: "Inter", sans-serif;
+  --wl-font-heading: "Playfair Display", serif;
+  --wl-font: var(--wl-font-body);
+
+  --wl-text: #1c1c1c;
+  --wl-text-muted: #6e6a64;
+  --wl-border: #e8e2d8;
+  --wl-surface: #ffffff;
+  --wl-page: #f6f2eb;
+
+  --wl-brand: #c6a96b;
+  --wl-brand-2: #b8964f;
+
+  --wl-radius-md: 14px;
+  --wl-radius-lg: 18px;
+
+  --wl-shadow-sm: 0 8px 22px rgba(0, 0, 0, 0.05);
+  --wl-shadow-md: 0 16px 40px rgba(0, 0, 0, 0.08);
+
+  --wl-ease: cubic-bezier(0.2, 0.8, 0.2, 1);
+  --wl-dur-fast: 140ms;
+  --wl-dur: 220ms;
+}
+
+body {
+  font-family: var(--wl-font) !important;
+  color: var(--wl-text);
+  background: var(--wl-page);
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  line-height: 1.6;
+  font-weight: 400;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--wl-font-heading);
+  color: var(--wl-text);
+  letter-spacing: -0.2px;
+  font-weight: 500;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+  transition: opacity var(--wl-dur-fast) var(--wl-ease);
+}
+
+a:hover {
+  opacity: 0.92;
+}
+
+button,
+input,
+textarea,
+select {
+  font-family: inherit;
+}
+
+:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 4px rgba(198, 169, 107, 0.2);
+  border-color: rgba(198, 169, 107, 0.5);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    transition: none !important;
+    scroll-behavior: auto !important;
+    animation: none !important;
+  }
+}
+
+/* Main content grows to push footer down */
+.container {
+  flex: 1;
+}

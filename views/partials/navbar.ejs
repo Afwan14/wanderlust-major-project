@@ -1,0 +1,182 @@
+<!-- ========================================
+     NAVIGATION BAR COMPONENT
+     ======================================== -->
+
+<% const user = currUser || null; %>
+<% const showSearchInNavbar = !hideNavbarExtras && currentRoute !== "/"; %>
+
+<link rel="stylesheet" href="/css/style.css" />
+
+<nav class="sticky-top wl-navbar" id="wlNavbar">
+  <div class="container-fluid wl-nav-shell">
+    <div class="wl-nav-left">
+      <a
+        class="navbar-brand wl-logo"
+        href="/listings"
+        aria-label="Wanderlust home"
+      >
+        <i class="fa-regular fa-compass"></i>
+      </a>
+      <a class="wl-brand" href="/listings">Wanderlust</a>
+    </div>
+
+    <% if (showSearchInNavbar) { %>
+    <form
+      class="wl-search wl-search-desktop"
+      role="search"
+      action="/listings"
+      method="GET"
+    >
+      <input
+        class="form-control search-inp"
+        type="search"
+        name="search"
+        placeholder="Search destinations"
+        autocomplete="off"
+      />
+      <button class="btn search-btn" type="submit">Search</button>
+    </form>
+    <% } %>
+
+    <div class="wl-nav-right">
+      <% if (!hideNavbarExtras) { %>
+      <a class="nav-link host-link desktop-only" href="/listings/new">
+        Become a host
+      </a>
+      <% } %>
+
+      <% if (showSearchInNavbar) { %>
+      <button
+        id="mobileSearchBtn"
+        class="nav-icon-btn mobile-only"
+        type="button"
+        aria-label="Open search"
+      >
+        <i class="fa-solid fa-magnifying-glass"></i>
+      </button>
+      <% } %>
+
+      <% if (user) { %>
+      <a href="/profile" class="user-avatar-link" title="Profile">
+        <div class="user-avatar">
+          <%= user.username.charAt(0).toUpperCase() %>
+        </div>
+      </a>
+      <% } %>
+
+      <button
+        id="menuBtn"
+        class="menu-btn"
+        type="button"
+        aria-label="Open menu"
+        aria-expanded="false"
+      >
+        <i class="fa-solid fa-bars"></i>
+      </button>
+
+      <div id="menuDropdown" class="menu-dropdown" role="menu">
+        <a class="menu-item" href="/help">
+          <i class="fa-regular fa-circle-question"></i>
+          Help Centre
+        </a>
+        <% if (user) { %>
+        <!-- <a class="menu-item" href="/bookings">
+          <i class="fa-regular fa-calendar-check"></i>
+          My Bookings
+        </a>
+        <a class="menu-item" href="/listings/my">
+          <i class="fa-regular fa-building"></i>
+          My Listings
+        </a>
+        <a class="menu-item" href="/wishlist">
+          <i class="fa-regular fa-heart"></i>
+          Wishlist
+        </a> -->
+        <hr />
+        <a class="menu-item menu-item-danger" href="/logout">
+          <i class="fa-solid fa-arrow-right-from-bracket"></i>
+          <b>Log out</b>
+        </a>
+        <% } else { %>
+        <hr />
+        <a class="menu-item" href="/signup">
+          <i class="fa-solid fa-user-plus"></i>
+          <b>Sign up</b>
+        </a>
+        <a class="menu-item" href="/login">
+          <i class="fa-solid fa-right-to-bracket"></i>
+          Log in
+        </a>
+        <% } %>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<div id="mobileMenuBackdrop" class="mobile-menu-backdrop"></div>
+<aside id="mobileMenuPanel" class="mobile-menu-panel" aria-hidden="true">
+  <div class="mobile-menu-head">
+    <h5>Menu</h5>
+    <button
+      id="closeMobileMenu"
+      type="button"
+      class="mobile-close-btn"
+      aria-label="Close menu"
+    >
+      <i class="fa-solid fa-xmark"></i>
+    </button>
+  </div>
+
+  <div class="mobile-menu-links">
+    <% if (!hideNavbarExtras) { %>
+    <a class="mobile-menu-item" href="/listings/new">Become a host</a>
+    <% } %>
+
+    <% if (user) { %>
+    <a class="mobile-menu-item" href="/bookings">My Bookings</a>
+    <a class="mobile-menu-item" href="/listings/my">My Listings</a>
+    <a class="mobile-menu-item" href="/wishlist">Wishlist</a>
+    <a class="mobile-menu-item mobile-menu-item-danger" href="/logout">
+      Logout
+    </a>
+    <% } else { %>
+    <a class="mobile-menu-item" href="/signup">Sign up</a>
+    <a class="mobile-menu-item" href="/login">Log in</a>
+    <% } %>
+  </div>
+</aside>
+
+<% if (showSearchInNavbar) { %>
+<div id="mobileSearchModal" class="mobile-search-modal" aria-hidden="true">
+  <div class="mobile-search-panel">
+    <div class="mobile-search-head">
+      <h5>Search</h5>
+      <button
+        id="closeMobileSearch"
+        type="button"
+        class="mobile-close-btn"
+        aria-label="Close search"
+      >
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+    </div>
+
+    <form
+      action="/listings"
+      method="GET"
+      class="mobile-search-form"
+      role="search"
+    >
+      <input
+        id="mobileSearchInput"
+        class="form-control"
+        type="search"
+        name="search"
+        placeholder="Search destinations"
+        autocomplete="off"
+      />
+      <button class="btn search-btn" type="submit">Search</button>
+    </form>
+  </div>
+</div>
+<% } %>

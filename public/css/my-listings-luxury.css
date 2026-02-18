@@ -1,0 +1,196 @@
+.my-listings-page {
+  --lux-gap-1: 8px;
+  --lux-gap-2: 16px;
+  --lux-gap-3: 24px;
+  --lux-gap-4: 32px;
+}
+
+.my-listings-page .listings-header {
+  margin-bottom: var(--lux-gap-3);
+}
+
+.my-listings-page .my-listings-header-top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--lux-gap-2);
+  flex-wrap: wrap;
+}
+
+.my-listings-page .listings-header h1 {
+  font-size: clamp(2rem, 2.8vw, 2.6rem);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  margin-bottom: var(--lux-gap-1);
+}
+
+.my-listings-page .listings-header p {
+  color: var(--wl-text-muted);
+  font-size: 0.98rem;
+}
+
+.my-listings-host-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 4px;
+  border-radius: 999px;
+  padding: 10px 16px;
+  text-decoration: none;
+  color: #5f4820;
+  font-weight: 600;
+  background: color-mix(in srgb, var(--wl-brand) 18%, var(--wl-surface) 82%);
+  border: 1px solid
+    color-mix(in srgb, var(--wl-brand) 34%, var(--wl-border) 66%);
+  transition: all 0.3s ease;
+}
+
+.my-listings-host-link:hover {
+  color: #4e3a18;
+  transform: translateY(-1px);
+  background: color-mix(in srgb, var(--wl-brand) 24%, var(--wl-surface) 76%);
+  box-shadow: 0 10px 22px rgba(0, 0, 0, 0.08);
+}
+
+.my-listing-card {
+  border-radius: 18px;
+  border: 1px solid color-mix(in srgb, var(--wl-border) 78%, transparent) !important;
+  background: linear-gradient(
+    160deg,
+    color-mix(in srgb, var(--wl-surface) 90%, var(--wl-brand) 10%),
+    var(--wl-surface)
+  );
+  box-shadow:
+    0 18px 40px rgba(0, 0, 0, 0.08),
+    0 2px 10px rgba(0, 0, 0, 0.04),
+    inset 0 1px 0 rgba(255, 255, 255, 0.35);
+  overflow: hidden;
+  transition:
+    transform 0.4s cubic-bezier(0.22, 0.61, 0.36, 1),
+    box-shadow 0.4s cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
+.my-listing-card:hover {
+  transform: translateY(-8px);
+  box-shadow:
+    0 30px 60px rgba(0, 0, 0, 0.13),
+    0 8px 22px rgba(0, 0, 0, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.4);
+}
+
+.my-listing-link {
+  display: block;
+}
+
+.my-listing-image-wrap {
+  position: relative;
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  border-top-left-radius: 18px;
+  border-top-right-radius: 18px;
+}
+
+.my-listing-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform: scale(1);
+  transition: transform 0.4s ease;
+}
+
+.my-listing-card:hover .my-listing-image {
+  transform: scale(1.03);
+}
+
+.my-listing-image-fade {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(15, 23, 42, 0) 52%,
+    rgba(15, 23, 42, 0.1) 78%,
+    rgba(15, 23, 42, 0.25) 100%
+  );
+  pointer-events: none;
+}
+
+.my-listing-body {
+  padding: var(--lux-gap-3) var(--lux-gap-3) var(--lux-gap-2);
+  display: flex;
+  flex-direction: column;
+  gap: var(--lux-gap-1);
+  background: transparent;
+}
+
+.my-listing-title {
+  margin: 0;
+  font-family: var(--wl-font-heading);
+  font-size: 1.22rem;
+  font-weight: 600;
+  line-height: 1.35;
+  letter-spacing: -0.01em;
+  color: var(--wl-text);
+}
+
+.my-listing-subtitle {
+  margin: 0;
+  color: color-mix(in srgb, var(--wl-text-muted) 88%, white 12%);
+  font-size: 0.9rem;
+}
+
+.my-listing-price {
+  margin: var(--lux-gap-1) 0 0;
+  color: color-mix(in srgb, var(--wl-text) 92%, black 8%);
+  font-size: 1.04rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+
+.my-listing-actions-wrap {
+  padding: 0 var(--lux-gap-3) var(--lux-gap-3);
+}
+
+.my-listing-actions-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--lux-gap-1);
+}
+
+.my-listing-action-btn {
+  appearance: none;
+  border: 1px solid color-mix(in srgb, var(--wl-border) 70%, transparent);
+  background: color-mix(in srgb, var(--wl-surface) 86%, white 14%);
+  border-radius: 14px;
+  padding: 10px 12px;
+  text-align: center;
+  font-size: 0.87rem;
+  font-weight: 600;
+  color: var(--wl-text);
+  text-decoration: none;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  transition:
+    transform 0.3s cubic-bezier(0.22, 0.61, 0.36, 1),
+    box-shadow 0.3s cubic-bezier(0.22, 0.61, 0.36, 1),
+    border-color 0.3s ease,
+    background 0.3s ease;
+}
+
+.my-listing-action-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.09);
+  border-color: color-mix(in srgb, var(--wl-brand) 30%, var(--wl-border) 70%);
+  background: color-mix(in srgb, var(--wl-surface) 78%, white 22%);
+  color: var(--wl-text);
+}
+
+.my-listing-action-delete {
+  border-color: color-mix(in srgb, var(--wl-brand-2) 28%, var(--wl-border) 72%);
+  color: color-mix(in srgb, var(--wl-brand-2) 70%, var(--wl-text) 30%);
+}
+
+.my-listing-action-delete:hover {
+  border-color: color-mix(in srgb, var(--wl-brand-2) 45%, var(--wl-border) 55%);
+  background: color-mix(in srgb, var(--wl-brand-2) 10%, var(--wl-surface) 90%);
+  color: color-mix(in srgb, var(--wl-brand-2) 85%, var(--wl-text) 15%);
+}

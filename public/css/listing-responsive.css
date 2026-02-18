@@ -1,0 +1,72 @@
+/* ======================================================
+   RESPONSIVE DESIGN
+====================================================== */
+
+@media (max-width: 768px) {
+  .listing-card img {
+    height: 220px;
+  }
+
+  .filters-bar {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .listing-title {
+    font-size: 1.6rem;
+  }
+
+  .details-title {
+    font-size: 1.1rem;
+  }
+
+  .hero-image-container {
+    max-height: 400px;
+    aspect-ratio: 4 / 3;
+  }
+
+  .hero-image {
+    padding: 15px;
+  }
+
+  .rating-section {
+    padding: 2rem;
+  }
+
+  .review-form {
+    padding: 1.5rem;
+  }
+
+  .booking-card {
+    position: static !important;
+    margin-top: 2rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .hero-image-container {
+    height: 300px;
+  }
+
+  .hero-image {
+    object-position: center 40%; /* keeps cabin visible on narrow screens */
+  }
+}
+
+@media (max-width: 768px) {
+  .show-img {
+    height: 26vh;
+  }
+
+  .listing-title {
+    font-size: 1.75rem;
+  }
+
+  .details-title {
+    font-size: 1.2rem;
+  }
+
+  .listing-description {
+    font-size: 0.95rem;
+  }
+}

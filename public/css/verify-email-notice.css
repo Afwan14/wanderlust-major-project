@@ -1,0 +1,105 @@
+/* Make icons more vibrant */
+.fa-envelope-circle-check {
+  animation: fadeInScale 0.5s ease-in-out;
+}
+
+.verify-mail-icon {
+  font-size: 5rem;
+  color: #28a745;
+}
+
+.verify-title {
+  color: #333;
+  font-weight: 600;
+}
+
+.verify-subtitle {
+  font-size: 1.1rem;
+  color: #666;
+}
+
+.verify-email-text {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #fe424d;
+}
+
+.verify-info-alert {
+  background-color: #e7f3ff;
+  border-color: #b3d9ff;
+}
+
+.verify-info-title {
+  color: #0056b3;
+  font-weight: 600;
+}
+
+.verify-info-list {
+  color: #333;
+}
+
+.verify-additional-info {
+  color: #666;
+  font-size: 0.95rem;
+}
+
+.verify-help-card {
+  background-color: #f8f9fa;
+  border: 1px solid #dee2e6;
+}
+
+.verify-help-title {
+  color: #333;
+  font-weight: 600;
+  margin-bottom: 15px;
+}
+
+.verify-help-list {
+  color: #666;
+  font-size: 0.9rem;
+}
+
+.verify-resend-btn {
+  min-width: 150px;
+}
+
+.verify-back-link {
+  color: #fe424d;
+  font-weight: 500;
+}
+
+.verify-help-footer {
+  color: #999;
+  font-size: 0.9rem;
+}
+
+.verify-support-link {
+  color: #fe424d;
+}
+
+@keyframes fadeInScale {
+  from {
+    opacity: 0;
+    transform: scale(0.5);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Hover effect for resend button */
+.btn-outline-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+  transition: all 0.2s ease;
+}
+
+/* Card shadow on hover */
+.card {
+  transition: box-shadow 0.3s ease;
+}
+
+.card:hover {
+  box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.175) !important;
+}

@@ -1,0 +1,419 @@
+/* ======================================================
+   BUTTONS (REUSABLE)
+====================================================== */
+
+/* Primary action (Wanderlust red) */
+.btn-primary-wl {
+  background: linear-gradient(135deg, #e6c88a, #c6a96b);
+  color: #1c1c1c;
+  border: none;
+  border-radius: 40px;
+  box-shadow: 0 10px 30px rgba(198, 169, 107, 0.35);
+  transition:
+    transform var(--wl-dur-fast) var(--wl-ease),
+    box-shadow var(--wl-dur) var(--wl-ease),
+    filter var(--wl-dur) var(--wl-ease);
+}
+
+.btn-primary-wl:hover {
+  color: #1c1c1c;
+  transform: translateY(-2px);
+  box-shadow: 0 14px 40px rgba(198, 169, 107, 0.45);
+  filter: saturate(1.04);
+}
+
+.btn-primary-wl:active {
+  transform: translateY(0);
+}
+
+.btn-primary-wl:focus-visible {
+  box-shadow:
+    0 0 0 4px rgba(198, 169, 107, 0.2),
+    0 16px 34px rgba(198, 169, 107, 0.35);
+}
+
+.btn-luxury {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 16px 44px;
+  border-radius: 50px;
+  background: linear-gradient(135deg, #e6c88a, #c6a96b);
+  color: #1c1c1c;
+  font-weight: 600;
+  letter-spacing: 0.4px;
+  text-decoration: none;
+  box-shadow: 0 10px 28px rgba(198, 169, 107, 0.4);
+  transition:
+    transform var(--wl-dur) var(--wl-ease),
+    box-shadow var(--wl-dur) var(--wl-ease),
+    filter var(--wl-dur) var(--wl-ease);
+}
+
+.btn-luxury:hover {
+  color: #1c1c1c;
+  transform: translateY(-2px);
+  box-shadow: 0 14px 36px rgba(198, 169, 107, 0.45);
+  filter: saturate(1.03);
+}
+
+/* Outline dark button */
+.btn-outline-wl {
+  border: 1px solid var(--wl-border);
+  color: var(--wl-text);
+  background: transparent;
+  border-radius: 40px;
+  transition:
+    transform var(--wl-dur-fast) var(--wl-ease),
+    background var(--wl-dur) var(--wl-ease),
+    border-color var(--wl-dur) var(--wl-ease);
+}
+
+.btn-outline-wl:hover {
+  background: rgba(198, 169, 107, 0.12);
+  border-color: rgba(198, 169, 107, 0.35);
+  color: var(--wl-text);
+  transform: translateY(-1px);
+}
+
+.btn-outline-wl:active {
+  transform: translateY(0);
+}
+
+/* Small utility buttons */
+.btn-sm-wl {
+  padding: 6px 12px;
+  font-size: 0.85rem;
+  border-radius: var(--wl-radius-md);
+}
+
+.btn-view {
+  background: linear-gradient(135deg, #e6c88a, #c6a96b);
+  color: #1c1c1c;
+  border-radius: 40px;
+  border: none;
+}
+
+/* ======================================================
+   TOAST NOTIFICATION
+====================================================== */
+
+#toast-container {
+  position: fixed;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 9998;
+  pointer-events: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  max-width: 90vw;
+}
+
+.toast-notification {
+  background: rgba(15, 23, 42, 0.92);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  color: #fff;
+  padding: 12px 18px;
+  border-radius: 16px;
+  font-size: 0.95rem;
+  font-weight: 500;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(20px);
+  transition:
+    opacity 0.3s ease,
+    transform 0.3s ease;
+  z-index: 9999;
+  box-shadow: 0 18px 50px rgba(15, 23, 42, 0.22);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.toast-notification.show {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateY(0);
+}
+
+.toast-notification.toast-success {
+  background: rgba(15, 23, 42, 0.92);
+}
+
+.toast-notification.toast-error {
+  background: rgba(15, 23, 42, 0.92);
+}
+
+.toast-content {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.toast-close {
+  display: none;
+}
+
+/* ======================================================
+   WISHLIST TOAST
+====================================================== */
+
+.wishlist-toast {
+  position: fixed;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%) translateY(20px);
+  background: rgba(15, 23, 42, 0.92);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  color: #fff;
+  padding: 12px 24px;
+  border-radius: 16px;
+  font-size: 0.95rem;
+  font-weight: 500;
+  opacity: 0;
+  pointer-events: none;
+  transition:
+    opacity 0.3s ease,
+    transform 0.3s ease;
+  z-index: 9999;
+  box-shadow: 0 18px 50px rgba(15, 23, 42, 0.22);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.wishlist-toast.show {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateX(-50%) translateY(0);
+}
+
+/* ======================================================
+   BADGES / TAGS
+====================================================== */
+
+.badge-light-wl {
+  background: rgba(255, 255, 255, 0.9);
+  border: 1px solid var(--wl-border);
+  color: var(--wl-text);
+  font-weight: 650;
+  padding: 6px 10px;
+  border-radius: 999px;
+  font-size: 0.75rem;
+}
+
+/* ======================================================
+   CARDS (GENERIC)
+====================================================== */
+
+.card-soft {
+  border-radius: var(--wl-radius-lg);
+  border: 1px solid var(--wl-border);
+  background: var(--wl-surface);
+  box-shadow: var(--wl-shadow-sm);
+  transition:
+    transform var(--wl-dur-fast) var(--wl-ease),
+    box-shadow var(--wl-dur) var(--wl-ease);
+}
+
+.card-soft:hover {
+  transform: translateY(-1px);
+  box-shadow: var(--wl-shadow-md);
+}
+
+/* ======================================================
+   UTILITIES
+====================================================== */
+
+.text-muted-small {
+  font-size: 0.85rem;
+  color: var(--wl-text-muted);
+}
+
+.rounded-xl {
+  border-radius: var(--wl-radius-lg);
+}
+/* ======================================================
+   ADD / EDIT BUTTONS
+====================================================== */
+
+.add-btn,
+.edit-btn {
+  background: linear-gradient(135deg, #e6c88a, #c6a96b) !important;
+  border: none !important;
+  color: #1c1c1c !important;
+  border-radius: 40px !important;
+}
+
+/* ======================================================
+   BUTTON HOVER EFFECTS
+====================================================== */
+
+.btn1:hover {
+  background-color: var(--wl-brand) !important;
+  color: #1c1c1c !important;
+}
+
+/* ======================================================
+   SEARCH BAR
+====================================================== */
+
+.search-btn {
+  background: linear-gradient(135deg, #e6c88a, #c6a96b);
+  color: #1c1c1c;
+  border-radius: 40px;
+  padding: 0 1rem;
+  border: none;
+  transition:
+    transform var(--wl-dur-fast) var(--wl-ease),
+    box-shadow var(--wl-dur) var(--wl-ease);
+}
+
+.search-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 14px 40px rgba(198, 169, 107, 0.45);
+}
+
+.search-btn i {
+  margin-right: 0.5rem;
+}
+
+.search-inp {
+  border-radius: var(--wl-radius-md);
+  padding: 0.55rem 1rem;
+  border: 1px solid var(--wl-border);
+  background: var(--wl-surface);
+}
+
+/* ======================================================
+   TAX TOGGLE
+====================================================== */
+
+.tax-info {
+  display: none;
+  transition: opacity 0.2s ease;
+}
+
+.show-tax .tax-info {
+  display: inline;
+}
+
+/* ======================================================
+   CATEGORY FILTER
+====================================================== */
+
+.category-filter {
+  position: relative;
+  display: inline-block;
+}
+
+.category-btn {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: var(--wl-surface);
+  border: 1px solid var(--wl-border);
+  padding: 10px 12px;
+  border-radius: 16px;
+  cursor: pointer;
+  box-shadow: var(--wl-shadow-sm);
+  transition:
+    transform var(--wl-dur-fast) var(--wl-ease),
+    box-shadow var(--wl-dur) var(--wl-ease),
+    border-color var(--wl-dur) var(--wl-ease),
+    background var(--wl-dur) var(--wl-ease);
+}
+
+.category-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: var(--wl-shadow-md);
+  border-color: rgba(15, 23, 42, 0.14);
+}
+
+.category-btn:focus-visible {
+  box-shadow:
+    0 0 0 4px rgba(254, 66, 77, 0.14),
+    var(--wl-shadow-md);
+}
+
+.category-summary {
+  font-size: 14px;
+  color: var(--wl-text-muted);
+  max-width: 160px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.category-dropdown {
+  display: none;
+  position: absolute;
+  top: 45px;
+  left: 0;
+  width: 230px;
+  max-height: 260px;
+  overflow-y: auto;
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 16px;
+  box-shadow: 0 22px 60px rgba(15, 23, 42, 0.18);
+  border: 1px solid rgba(15, 23, 42, 0.08);
+  padding: 10px;
+  z-index: 1000;
+}
+
+.category-option {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 6px 4px;
+  cursor: pointer;
+  border-radius: 12px;
+  transition: background var(--wl-dur) var(--wl-ease);
+}
+
+.category-option:hover {
+  background: #f8fafc;
+}
+
+.category-option input {
+  cursor: pointer;
+}
+
+.category-actions {
+  position: sticky;
+  bottom: 0;
+  background: rgba(255, 255, 255, 0.95);
+  padding-top: 8px;
+  margin-top: 8px;
+  border-top: 1px solid rgba(15, 23, 42, 0.06);
+  display: flex;
+  justify-content: space-between;
+}
+
+.apply-btn {
+  background: var(--wl-brand-2);
+  color: white;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 12px;
+  cursor: pointer;
+  box-shadow: 0 12px 26px rgba(255, 56, 92, 0.18);
+  transition:
+    transform var(--wl-dur-fast) var(--wl-ease),
+    box-shadow var(--wl-dur) var(--wl-ease);
+}
+
+.apply-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 16px 34px rgba(255, 56, 92, 0.22);
+}
+
+.clear-btn {
+  background: transparent;
+  border: none;
+  color: var(--wl-text-muted);
+  cursor: pointer;
+  font-weight: 650;
+}

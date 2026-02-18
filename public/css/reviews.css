@@ -1,0 +1,588 @@
+/* ======================================================
+   REVIEWS GRID
+====================================================== */
+
+.reviews-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2rem;
+  margin-bottom: 2rem;
+}
+
+/* ======================================================
+   REVIEW CARD - ENHANCED
+====================================================== */
+
+.review-card {
+  padding: 1.5rem;
+  background: #fff;
+  border-radius: 16px;
+  border: 1px solid #e8e8e8;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+}
+
+.review-card:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  border-color: #ddd;
+}
+
+.review-card.enhanced {
+  background: #fff;
+  border: 1px solid #e8e8e8;
+}
+
+.review-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.review-author-info {
+  flex: 1;
+}
+
+.review-author {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #111;
+  margin-bottom: 0.25rem;
+}
+
+.review-date {
+  font-size: 0.85rem;
+  color: #717171;
+}
+
+.review-meta {
+  font-size: 0.85rem;
+  color: #777;
+}
+
+/* ======================================================
+   STAR RATING
+====================================================== */
+
+.review-rating {
+  margin: 0.75rem 0;
+  font-size: 1rem;
+  display: flex;
+  gap: 0.25rem;
+}
+
+.review-rating i {
+  color: var(--wl-brand);
+  font-size: 0.9rem;
+}
+
+.review-rating i.fa-regular {
+  color: var(--wl-border);
+}
+
+.stars {
+  color: var(--wl-text);
+  letter-spacing: 1px;
+}
+
+/* ======================================================
+   REVIEW TEXT
+====================================================== */
+
+.review-text {
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: var(--wl-text-muted);
+  margin-bottom: 1rem;
+}
+
+/* Show more button */
+.show-more-btn {
+  background: none;
+  border: none;
+  padding: 0;
+  font-weight: 600;
+  text-decoration: underline;
+  cursor: pointer;
+  color: #000;
+}
+
+/* ======================================================
+   NO REVIEWS STATE
+====================================================== */
+
+.no-reviews {
+  padding: 3rem 2rem;
+  background: #f7f7f7;
+  border-radius: 12px;
+  text-align: center;
+}
+
+.no-reviews h3 {
+  font-size: 1.3rem;
+  margin-bottom: 0.5rem;
+}
+
+.no-reviews p {
+  font-size: 1rem;
+}
+
+/* ======================================================
+   RATING SUMMARY (GUEST FAVOURITE)
+====================================================== */
+
+.rating-summary {
+  border-top: 1px solid #ddd;
+  border-bottom: 1px solid #ddd;
+  padding: 2rem 0;
+  text-align: center;
+}
+
+.rating-badge {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.rating-number {
+  font-size: 3.5rem;
+  font-weight: 700;
+}
+
+.laurel {
+  font-size: 2rem;
+}
+
+.rating-grid p {
+  font-size: 0.9rem;
+  color: #555;
+}
+
+/* ======================================================
+   RESPONSIVE
+====================================================== */
+
+/* Responsive */
+@media (max-width: 768px) {
+  .reviews-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ======================================================
+   USER REVIEWS PAGE STYLES
+====================================================== */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: var(--wl-font-body);
+  background: var(--wl-page);
+  color: var(--wl-text);
+}
+
+/* ======================================================
+   REVIEWS PAGE CONTAINER
+====================================================== */
+
+.reviews-page-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 40px 32px;
+  background: var(--wl-surface);
+}
+
+/* ======================================================
+   BREADCRUMB
+====================================================== */
+
+.breadcrumb-section {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 32px;
+  font-size: 0.95rem;
+}
+
+.breadcrumb-link {
+  color: var(--wl-text-muted);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.breadcrumb-link:hover {
+  color: var(--wl-text);
+  text-decoration: underline;
+}
+
+.breadcrumb-separator {
+  color: var(--wl-text-muted);
+  font-size: 1.2rem;
+}
+
+.breadcrumb-current {
+  color: var(--wl-text);
+  font-weight: 500;
+}
+
+/* ======================================================
+   PAGE TITLE
+====================================================== */
+
+.page-title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  letter-spacing: -0.5px;
+  margin-bottom: 32px;
+  color: #222;
+}
+
+/* ======================================================
+   TABS NAVIGATION
+====================================================== */
+
+.reviews-tabs {
+  display: flex;
+  border-bottom: 1px solid #ebebeb;
+  margin-bottom: 48px;
+  gap: 0;
+}
+
+.tab-item {
+  padding: 16px 24px;
+  text-decoration: none;
+  color: #717171;
+  font-weight: 500;
+  font-size: 1rem;
+  border-bottom: 2px solid transparent;
+  transition: all 0.25s ease;
+  position: relative;
+  bottom: -1px;
+}
+
+.tab-item:hover {
+  color: #222;
+}
+
+.tab-item.active {
+  color: #222;
+  border-bottom-color: #222;
+  font-weight: 600;
+}
+
+/* ======================================================
+   REVIEW SECTIONS
+====================================================== */
+
+.reviews-section {
+  margin-bottom: 56px;
+}
+
+.section-title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  letter-spacing: -0.3px;
+  margin-bottom: 16px;
+  color: #222;
+}
+
+.section-description {
+  color: #717171;
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+/* ======================================================
+   RESPONSIVE DESIGN
+====================================================== */
+
+@media (max-width: 768px) {
+  .reviews-page-container {
+    padding: 24px 16px;
+  }
+
+  .page-title {
+    font-size: 2rem;
+    margin-bottom: 24px;
+  }
+
+  .reviews-tabs {
+    margin-bottom: 32px;
+    gap: 0;
+    overflow-x: auto;
+  }
+
+  .tab-item {
+    padding: 14px 18px;
+    font-size: 0.95rem;
+    white-space: nowrap;
+  }
+
+  .section-title {
+    font-size: 1.25rem;
+  }
+
+  .breadcrumb-section {
+    margin-bottom: 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .reviews-page-container {
+    padding: 16px 12px;
+  }
+
+  .page-title {
+    font-size: 1.5rem;
+  }
+
+  .reviews-tabs {
+    flex-wrap: wrap;
+  }
+
+  .tab-item {
+    padding: 12px 14px;
+    font-size: 0.9rem;
+  }
+
+  .section-title {
+    font-size: 1.1rem;
+  }
+}
+
+/* ======================================================
+   UTILITY CLASSES
+====================================================== */
+
+.mt-5 {
+  margin-top: 40px;
+}
+
+.d-none {
+  display: none !important;
+}
+
+/* ======================================================
+   TAB CONTENT SECTIONS
+====================================================== */
+
+.tab-content {
+  transition: opacity 0.3s ease;
+}
+
+.tab-content.active {
+  opacity: 1;
+}
+
+/* ======================================================
+   REVIEW ITEMS (ABOUT YOU & BY YOU)
+====================================================== */
+
+.reviews-list {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.review-item {
+  padding: 24px;
+  border: 1px solid #ebebeb;
+  border-radius: 12px;
+  transition: all 0.2s ease;
+}
+
+.review-item:hover {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.review-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 16px;
+  gap: 16px;
+}
+
+/* Reviewer Info (for reviews about you) */
+.reviewer-info {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+}
+
+.reviewer-avatar {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: #222;
+  color: #fff;
+  font-weight: 700;
+  font-size: 1.2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.reviewer-details {
+  flex: 1;
+}
+
+.reviewer-name {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #222;
+  margin: 0;
+}
+
+.review-listing {
+  font-size: 0.9rem;
+  color: var(--wl-text-muted);
+  margin: 4px 0 0 0;
+}
+
+/* Listing Info (for reviews by you) */
+.listing-info {
+  flex: 1;
+}
+
+.listing-title {
+  text-decoration: none;
+  color: var(--wl-text);
+}
+
+.listing-title h4 {
+  font-size: 1rem;
+  font-weight: 600;
+  margin: 0;
+  transition: color 0.2s ease;
+}
+
+.listing-title:hover h4 {
+  color: var(--wl-brand);
+}
+
+.review-location {
+  font-size: 0.9rem;
+  color: var(--wl-text-muted);
+  margin: 4px 0 0 0;
+}
+
+/* Rating Section */
+.review-rating {
+  text-align: right;
+  flex-shrink: 0;
+}
+
+.stars {
+  display: block;
+  font-size: 1.2rem;
+  letter-spacing: 2px;
+  margin-bottom: 4px;
+}
+
+.rating-text {
+  font-size: 0.85rem;
+  color: #717171;
+  margin: 0;
+}
+
+/* Review Comment */
+.review-comment {
+  color: #222;
+  font-size: 0.95rem;
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* ======================================================
+   RESPONSIVE DESIGN
+====================================================== */
+
+@media (max-width: 768px) {
+  .reviews-page-container {
+    padding: 24px 16px;
+  }
+
+  .page-title {
+    font-size: 2rem;
+    margin-bottom: 24px;
+  }
+
+  .reviews-tabs {
+    margin-bottom: 32px;
+    gap: 0;
+    overflow-x: auto;
+  }
+
+  .tab-item {
+    padding: 14px 18px;
+    font-size: 0.95rem;
+    white-space: nowrap;
+  }
+
+  .section-title {
+    font-size: 1.25rem;
+  }
+
+  .breadcrumb-section {
+    margin-bottom: 20px;
+  }
+
+  .review-item {
+    padding: 16px;
+  }
+
+  .review-header {
+    flex-direction: column;
+  }
+
+  .review-rating {
+    text-align: left;
+  }
+}
+
+@media (max-width: 768px) {
+  .reviews-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .reviews-page-container {
+    padding: 16px 12px;
+  }
+
+  .page-title {
+    font-size: 1.5rem;
+  }
+
+  .reviews-tabs {
+    flex-wrap: wrap;
+  }
+
+  .tab-item {
+    padding: 12px 14px;
+    font-size: 0.9rem;
+  }
+
+  .section-title {
+    font-size: 1.1rem;
+  }
+
+  .review-item {
+    padding: 12px;
+  }
+
+  .reviewer-avatar {
+    width: 40px;
+    height: 40px;
+    font-size: 1rem;
+  }
+}

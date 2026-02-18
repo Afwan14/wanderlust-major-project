@@ -1,0 +1,136 @@
+﻿<% layout("/layouts/boilerplate") %>
+
+<head>
+  <link rel="stylesheet" href="/css/profile.css" />
+</head>
+
+<section class="container mt-5 complete-profile-shell">
+  <div class="profile-form-hero mb-4">
+    <h2 class="mb-2">Complete your profile</h2>
+    <p class="text-muted mb-0">
+      Add the details that help hosts and guests get to know you.
+    </p>
+  </div>
+
+  <div class="profile-form-card">
+    <form class="profile-form" id="completeProfileForm" method="POST" action="/profile" novalidate>
+      <div class="profile-form-section">
+        <h4>Basics</h4>
+        <p>Share the essentials that help guests and hosts connect.</p>
+        <div class="profile-form-grid">
+          <div class="form-group">
+            <label class="form-label">Username</label>
+            <input
+              type="text"
+              name="username"
+              class="form-control"
+              value="<%= (profileFormData && profileFormData.username) || currUser.username %>"
+              required
+            />
+          </div>
+          <div class="form-group">
+            <label class="form-label">Full name</label>
+            <input
+              type="text"
+              name="fullName"
+              class="form-control"
+              value="<%= (profileFormData && profileFormData.fullName) || currUser.fullName || "" %>"
+              placeholder="Your full name"
+              required
+            />
+          </div>
+          <div class="form-group">
+            <label class="form-label">Phone</label>
+            <input
+              type="tel"
+              name="phone"
+              class="form-control"
+              value="<%= (profileFormData && profileFormData.phone) || currUser.phone || "" %>"
+              placeholder="Your phone number"
+            />
+          </div>
+          <div class="form-group">
+            <label class="form-label">Location</label>
+            <input
+              type="text"
+              name="location"
+              class="form-control"
+              value="<%= (profileFormData && profileFormData.location) || currUser.location || "" %>"
+              placeholder="City, Country"
+              required
+            />
+          </div>
+        </div>
+      </div>
+
+      <div class="profile-form-section">
+        <h4>About</h4>
+        <p>Let others know a little about your personality and style.</p>
+        <div class="form-group">
+          <label class="form-label">Bio</label>
+          <textarea
+            id="bioField"
+            name="bio"
+            class="form-control <%= bioError ? 'bio-has-error' : '' %>"
+            rows="4"
+            placeholder="Tell hosts a little about yourself."
+            required
+            minlength="10"
+            aria-describedby="bioError bioCounter"
+          ><%= (profileFormData && profileFormData.bio) || currUser.bio || "" %></textarea>
+          <div id="bioCounter" class="bio-counter" aria-live="polite">0 / 10 characters</div>
+          <p id="bioError" class="bio-error-message <%= bioError ? 'show' : '' %>" aria-live="polite">
+            <%= bioError || "Please write at least 10 characters in your bio." %>
+          </p>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Languages</label>
+          <input
+            type="text"
+            name="languages"
+            class="form-control"
+            value="<%= (profileFormData && profileFormData.languages) || currUser.languages || "" %>"
+            placeholder="English, Hindi"
+            required
+          />
+        </div>
+      </div>
+
+      <div class="profile-form-section">
+        <h4>Work & education</h4>
+        <p>Share your professional and educational background.</p>
+        <div class="profile-form-grid">
+          <div class="form-group">
+            <label class="form-label">Work</label>
+            <input
+              type="text"
+              name="work"
+              class="form-control"
+              value="<%= (profileFormData && profileFormData.work) || currUser.work || "" %>"
+              placeholder="Your role or company"
+              required
+            />
+          </div>
+          <div class="form-group">
+            <label class="form-label">Education</label>
+            <input
+              type="text"
+              name="education"
+              class="form-control"
+              value="<%= (profileFormData && profileFormData.education) || currUser.education || "" %>"
+              placeholder="Your school or degree"
+              required
+            />
+          </div>
+        </div>
+      </div>
+
+      <div class="d-flex justify-content-between align-items-center mt-4">
+        <a href="/profile" class="btn btn-outline-secondary">Cancel</a>
+        <button type="submit" class="btn btn-danger">Save profile</button>
+      </div>
+    </form>
+  </div>
+</section>
+
+<script src="/js/complete-profile.js"></script>

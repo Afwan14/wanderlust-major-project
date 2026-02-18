@@ -1,0 +1,184 @@
+<% layout("/layouts/boilerplate") %>
+
+<head>
+  <link rel="stylesheet" href="/css/booking-detail.css" />
+</head>
+
+<div class="container booking-detail">
+  <section class="booking-hero">
+    <div class="booking-hero-image">
+      <% if (listing && listing.image) { %>
+      <img src="<%= listing.image.url %>" alt="<%= listingTitle %>" />
+      <% } else { %>
+      <div class="booking-hero-placeholder">Listing image unavailable</div>
+      <% } %>
+
+      <span class="booking-status-badge <%= statusClass %>">
+        <%= statusLabel %>
+      </span>
+
+      <div class="booking-hero-overlay">
+        <h1><%= listingTitle %></h1>
+        <p class="booking-hero-location"><%= locationText %></p>
+        <p class="booking-hero-dates">
+          <%= checkInLabel %> ->
+          <%= checkOutLabel %>
+          -
+          <%= nights %>
+          Night<%= nights > 1 ? "s" : "" %>
+        </p>
+        <% if (isUpcoming) { %>
+        <p class="booking-hero-note">We look forward to welcoming you.</p>
+        <% } else if (isCompleted) { %>
+        <p class="booking-hero-note">Thank you for staying with us.</p>
+        <% } %>
+      </div>
+    </div>
+  </section>
+
+  <section class="booking-section booking-info">
+    <div class="booking-card">
+      <div class="booking-card-grid">
+        <div>
+          <p class="booking-card-label">Check-in</p>
+          <p class="booking-card-value"><%= checkInLabel %></p>
+        </div>
+        <div>
+          <p class="booking-card-label">Check-out</p>
+          <p class="booking-card-value"><%= checkOutLabel %></p>
+        </div>
+        <div>
+          <p class="booking-card-label">Guests</p>
+          <p class="booking-card-value"><%= guestCount %></p>
+        </div>
+        <div>
+          <p class="booking-card-label">Nights</p>
+          <p class="booking-card-value"><%= nights %></p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="booking-section booking-payment">
+    <div class="booking-card">
+      <div class="booking-payment-row">
+        <div>
+          <p class="booking-card-label">Total Paid</p>
+          <p class="booking-card-amount">
+            ₹<%= booking.totalPrice.toLocaleString("en-IN") %>
+          </p>
+        </div>
+        <div>
+          <p class="booking-card-label">Payment Method</p>
+          <p class="booking-card-value">Card on file</p>
+        </div>
+        <div>
+          <p class="booking-card-label">Booking Reference</p>
+          <p class="booking-card-value">
+            WL-<%= booking._id.toString().slice(-8).toUpperCase() %>
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="booking-section booking-snapshot">
+    <div class="booking-card">
+      <h2 class="booking-section-title">Property Snapshot</h2>
+      <p class="booking-snapshot-address"><%= locationText %></p>
+      <div class="booking-amenities">
+        <div class="amenity-item">
+          <i class="fa-solid fa-user-group"></i>
+          <span>
+            <%= guestCount %>
+            Guests
+          </span>
+        </div>
+        <% if (listing) { %>
+        <div class="amenity-item">
+          <i class="fa-solid fa-bed"></i>
+          <span>
+            <%= listing.beds %>
+            Beds
+          </span>
+        </div>
+        <div class="amenity-item">
+          <i class="fa-solid fa-door-open"></i>
+          <span>
+            <%= listing.bedrooms %>
+            Bedrooms
+          </span>
+        </div>
+        <div class="amenity-item">
+          <i class="fa-solid fa-bath"></i>
+          <span>
+            <%= listing.bathrooms %>
+            Baths
+          </span>
+        </div>
+        <% } %>
+      </div>
+      <div class="booking-map-preview">
+        <p>Map preview unavailable</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="booking-section booking-actions">
+    <div class="booking-card booking-actions-card">
+      <% if (isUpcoming && !isCancelled) { %>
+      <div class="booking-actions-row">
+        <form
+          method="POST"
+          action="/bookings/<%= booking._id %>?_method=DELETE"
+        >
+          <button class="booking-btn booking-btn-secondary" type="submit">
+            Cancel Booking
+          </button>
+        </form>
+        <% if (listing) { %>
+        <a
+          href="/listings/<%= listing._id %>/message-host"
+          class="booking-btn booking-btn-primary"
+        >
+          Contact Host
+        </a>
+        <% } %>
+      </div>
+      <% } %>
+
+      <% if (isCompleted && !userReview) { %>
+      <div class="booking-actions-row">
+        <a
+          href="/bookings/<%= booking._id %>/review"
+          class="booking-btn booking-btn-primary"
+        >
+          Share Your Experience
+        </a>
+      </div>
+      <% } %>
+
+      <% if (isCompleted && userReview) { %>
+      <div class="booking-review-summary">
+        <div class="booking-review-header">
+          <h3>Your Review</h3>
+          <span class="booking-review-score">
+            <%= userReview.overall.toFixed(1) %>
+          </span>
+        </div>
+        <p class="booking-review-text"><%= userReview.comment %></p>
+        <a
+          href="/listings/<%= listing._id %>#reviews"
+          class="booking-review-link"
+        >
+          View in listing
+        </a>
+      </div>
+      <% } %>
+
+      <% if (isCancelled) { %>
+      <p class="booking-cancelled-note">This booking has been cancelled.</p>
+      <% } %>
+    </div>
+  </section>
+</div>

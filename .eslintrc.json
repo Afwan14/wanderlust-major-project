@@ -1,0 +1,41 @@
+{
+  "env": {
+    "node": true,
+    "es2021": true
+  },
+
+  "extends": [
+    "eslint:recommended",
+    "plugin:node/recommended",
+    "plugin:import/recommended",
+    "plugin:promise/recommended",
+    "prettier"
+  ],
+
+  "parserOptions": {
+    "ecmaVersion": "latest",
+    "sourceType": "script"
+  },
+
+  "rules": {
+    /* === GENERAL JS RULES === */
+    "no-unused-vars": ["warn", { "argsIgnorePattern": "req|res|next" }],
+    "no-console": "off",
+    "eqeqeq": ["error", "always"],
+    "prefer-const": "warn",
+
+    /* === EXPRESS / NODE === */
+    "node/no-unpublished-require": "off",
+    "node/no-missing-require": "off",
+
+    /* === IMPORTS === */
+    "import/no-unresolved": "off",
+
+    /* === ASYNC === */
+    "promise/always-return": "off",
+
+    /* === STYLE (handled by Prettier) === */
+    "semi": "off",
+    "quotes": "off"
+  }
+}

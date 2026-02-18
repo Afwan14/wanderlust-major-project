@@ -1,0 +1,126 @@
+<% layout("/layouts/boilerplate") %>
+
+<head>
+  <link rel="stylesheet" href="/css/bookings.css" />
+  <link rel="stylesheet" href="/css/host-reservations.css" />
+</head>
+
+<div class="container my-5 bookings-page host-reservations-page">
+  <section class="bookings-header">
+    <h1>Guest Reservations</h1>
+    <p>Manage upcoming guests and past bookings</p>
+    <div class="bookings-divider" aria-hidden="true"></div>
+
+    <% if (reservations.length > 0) { %>
+    <div
+      class="booking-filters"
+      role="tablist"
+      aria-label="Reservation filters"
+    >
+      <button class="booking-filter active" type="button" data-filter="all">
+        All
+      </button>
+      <button class="booking-filter" type="button" data-filter="upcoming">
+        Upcoming
+      </button>
+      <button class="booking-filter" type="button" data-filter="completed">
+        Completed
+      </button>
+      <button class="booking-filter" type="button" data-filter="cancelled">
+        Cancelled
+      </button>
+    </div>
+    <% } %>
+  </section>
+
+  <% if (reservations.length === 0) { %>
+  <div class="booking-empty">
+    <div class="booking-empty-inner">
+      <div class="booking-empty-illustration" aria-hidden="true">
+        <i class="fa-regular fa-calendar-check"></i>
+      </div>
+      <h4>No guest reservations yet.</h4>
+      <p class="booking-empty-text">
+        When someone books your listing, it will appear here.
+      </p>
+      <a href="/listings/my" class="btn booking-empty-btn">View My Listings</a>
+    </div>
+  </div>
+  <% } else { %>
+  <div class="row stays-list">
+    <% reservations.forEach(reservation => { %>
+    <% const filterStatus = reservation.statusClass === "status-completed" ? "completed" : reservation.statusClass === "status-upcoming" ? "upcoming" : "cancelled"; %>
+    <div class="col-12 booking-item" data-status="<%= filterStatus %>">
+      <a
+        class="stay-card host-reservation-card"
+        href="<%= reservation.detailsHref %>"
+        aria-label="View reservation details"
+      >
+        <div class="stay-card-media">
+          <% if (reservation.hasImage) { %>
+          <img
+            src="<%= reservation.imageUrl %>"
+            alt="<%= reservation.imageAlt %>"
+          />
+          <% } else { %>
+          <div class="stay-card-placeholder">Listing unavailable</div>
+          <% } %>
+        </div>
+
+        <div class="stay-card-body">
+          <div class="stay-card-main">
+            <div class="host-reservation-top">
+              <h3 class="stay-card-title"><%= reservation.listingTitle %></h3>
+              <span class="stay-status-pill <%= reservation.statusClass %>">
+                <%= reservation.statusLabel %>
+              </span>
+            </div>
+
+            <div class="stay-card-meta-grid host-meta-grid">
+              <p class="stay-card-meta-item">
+                <span class="meta-label">Guest name</span>
+                <span class="meta-value"><%= reservation.guestName %></span>
+              </p>
+              <p class="stay-card-meta-item">
+                <span class="meta-label">Guest email</span>
+                <span class="meta-value meta-muted">
+                  <%= reservation.guestEmail %>
+                </span>
+              </p>
+              <p class="stay-card-meta-item">
+                <span class="meta-label">Dates</span>
+                <span class="meta-value">
+                  <%= reservation.checkInLabel %> → <%=
+                  reservation.checkOutLabel %>
+                </span>
+              </p>
+              <p class="stay-card-meta-item">
+                <span class="meta-label">Total amount</span>
+                <span class="meta-value">
+                  ₹<%= Number(reservation.totalPrice).toLocaleString("en-IN") %>
+                </span>
+              </p>
+              <p class="stay-card-meta-item">
+                <span class="meta-label">Booking date</span>
+                <span class="meta-value"><%= reservation.bookingDate %></span>
+              </p>
+            </div>
+
+            <div class="host-reservation-footer">
+              <span class="view-details-link">View Details</span>
+              <span class="stay-card-arrow">&#8594;</span>
+            </div>
+          </div>
+        </div>
+      </a>
+    </div>
+    <% }) %>
+  </div>
+
+  <div class="booking-filter-empty d-none" id="reservationFilterEmpty">
+    <p>No reservations found for this filter.</p>
+  </div>
+  <% } %>
+</div>
+
+<script src="/js/bookings-filters.js"></script>

@@ -1,0 +1,47 @@
+<!-- ========================================
+     FOOTER COMPONENT
+     Site footer with branding, social links, and legal links
+     ======================================== -->
+
+<footer class="site-footer">
+  <div class="footer-container">
+    <!-- LEFT: Brand & Copyright -->
+    <!-- Dynamic year using EJS template -->
+    <div class="footer-brand">
+      © <%= new Date().getFullYear() %> Wanderlust Private Limited
+    </div>
+
+    <!-- CENTER: Social Media Icons -->
+    <!-- Links to social media profiles -->
+    <div class="footer-socials">
+      <!-- Facebook link -->
+      <a href="#" aria-label="Facebook">
+        <i class="fa-brands fa-facebook-f"></i>
+      </a>
+
+      <!-- Instagram link -->
+      <a href="#" aria-label="Instagram">
+        <i class="fa-brands fa-instagram"></i>
+      </a>
+
+      <!-- LinkedIn link -->
+      <a href="#" aria-label="LinkedIn">
+        <i class="fa-brands fa-linkedin-in"></i>
+      </a>
+    </div>
+
+    <!-- RIGHT: Legal & Info Links -->
+    <!-- Navigation links to important pages -->
+    <div class="footer-links">
+      <a href="/about">About</a>
+      <span>·</span>
+      <a href="/careers">Careers</a>
+      <span>·</span>
+      <a href="/help">Help</a>
+      <span>·</span>
+      <a href="/privacy">Privacy</a>
+      <span>·</span>
+      <a href="/terms">Terms</a>
+    </div>
+  </div>
+</footer>

@@ -1,64 +1,373 @@
 <% layout("/layouts/boilerplate") %>
-<body>
-    <div class="row mt-3">
-        <div class="col-8 offset-2">
-            <br>
-            <h3>Create a new listing</h3>
-            <form method="POST" action="/listings" class="needs-validation" novalidate enctype="multipart/form-data">
-                <div class="mb-3">
-                    <label for="title" class="form-label">Title</label>
-                    <input type="text" placeholder="Add a title" name="listing[title]" class="form-control" required>
-                    <div class="valid-feedback">
-                        Title looks good!
-                    </div>
-                    <div class="invalid-feedback">
-                        Relevant title is required!
-                    </div>
-                </div>
 
-                <div class="mb-3">
-                    <label for="description" class="form-label">Description</label>
-                    <textarea name="listing[description]" placeholder="Add description" class="form-control" required></textarea>
-                    <div class="invalid-feedback">
-                        Description is required!
-                    </div>
-                </div>
+<head>
+  <link rel="stylesheet" href="/css/new-listing.css" />
+</head>
 
-                <div class="mb-3">
-                    <label for="image" class="form-label">Upload Image</label>
-                    <input type="file" name="listing[image]" class="form-control" required>
-                </div>
+<div class="container mt-4 form-page">
+  <div class="row justify-content-center">
+    <!-- Make room for a preview column on large screens -->
+    <div class="col-12 col-xl-10">
+      <div class="row g-4 align-items-start">
+        <div class="col-12 col-lg-7">
+          <!-- =========================
+               PAGE HEADER
+          ========================== -->
+          <h2 class="fw-semibold">Create a new listing</h2>
+          <p class="text-muted mb-4">
+            Share some basic details about your place. You can edit everything
+            later.
+          </p>
 
-                <div class="row">
-                    <div class="mb-3 col-md-4">
-                        <label for="price" class="form-label">Price</label>
-                        <input type="number" placeholder="eg-1200" name="listing[price]" class="form-control" required>
-                        <div class="invalid-feedback">
-                            Price is required!
-                        </div>
-                    </div>
-                
-                    <div class="mb-3 col-md-8">
-                        <label for="country" class="form-label">Country</label>
-                        <input type="text" placeholder="Add country" name="listing[country]" class="form-control" required>
-                        <div class="invalid-feedback">
-                            Country name is required!
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="mb-3">
-                    <label for="location" class="form-label">Location</label>
-                    <input type="text" placeholder="Enter location" name="listing[location]" class="form-control" required>
-                    <div class="invalid-feedback">
-                        Location is required!
-                    </div>
-                </div>
+          <!-- =========================
+               FORM
+          ========================== -->
+          <form
+            method="POST"
+            action="/listings"
+            class="needs-validation"
+            novalidate
+            enctype="multipart/form-data"
+            id="newListingForm"
+          >
+            <!-- =========================
+             BASIC INFO
+        ========================== -->
+            <h5 class="form-section-title">Basic information</h5>
+            <hr />
 
-                <button class="btn btn-dark add-btn mt-3">Add</button>
-                <br><br>
-            </form>
+            <div class="mb-3">
+              <label class="form-label">Title</label>
+              <input
+                type="text"
+                name="listing[title]"
+                class="form-control"
+                placeholder="e.g. Cozy beachside cottage"
+                required
+                id="titleInput"
+              />
+              <div class="invalid-feedback">Relevant title is required.</div>
+            </div>
+
+            <div class="mb-4">
+              <label class="form-label">Description</label>
+              <textarea
+                name="listing[description]"
+                class="form-control"
+                rows="4"
+                placeholder="Tell guests what makes your place special"
+                required
+              ></textarea>
+              <div class="invalid-feedback">Description is required.</div>
+            </div>
+
+            <!-- =========================
+             CATEGORY
+        ========================== -->
+            <h5 class="form-section-title">Category</h5>
+            <hr />
+
+            <p class="text-muted small mb-2">
+              Choose the category that best describes your place
+            </p>
+
+            <div class="category-filter mb-4">
+              <button
+                type="button"
+                class="category-btn"
+                id="categoryBtn"
+                aria-expanded="false"
+                aria-controls="categoryDropdown"
+              >
+                <span>Category</span>
+                <span class="category-summary" id="categorySummary"></span>
+                <i class="fa-solid fa-chevron-down"></i>
+              </button>
+
+              <div class="category-dropdown" id="categoryDropdown">
+                <%- listingCategoryOptionsMarkup %>
+
+                <div class="category-actions">
+                  <button type="button" id="applyCategory" class="apply-btn">
+                    Apply
+                  </button>
+                  <button type="button" id="clearCategory" class="clear-btn">
+                    Clear
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <div id="hiddenCategories"></div>
+            <!-- (left in place in case other scripts rely on it, but no longer required) -->
+
+            <!-- =========================
+             IMAGE UPLOAD
+        ========================== -->
+            <h5 class="form-section-title">Photos</h5>
+            <hr />
+
+            <div class="mb-4">
+              <label class="form-label">Cover image</label>
+              <input
+                type="file"
+                name="listing[image]"
+                class="form-control"
+                required
+                id="imageInput"
+                accept="image/*"
+              />
+              <div class="form-text">
+                This photo will appear first in search results.
+              </div>
+            </div>
+
+            <div class="mb-4">
+              <label class="form-label">
+                Additional gallery images (Optional)
+              </label>
+              <input
+                type="file"
+                name="listing[additionalImages]"
+                class="form-control"
+                id="additionalImagesInput"
+                accept="image/*"
+                multiple
+              />
+              <div class="form-text">
+                Upload up to 2 additional images for the gallery. If not
+                provided, cover image will be used.
+              </div>
+            </div>
+
+            <!-- =========================
+             LOCATION & PRICE
+        ========================== -->
+            <h5 class="form-section-title">Location & pricing</h5>
+            <hr />
+
+            <div class="row">
+              <div class="mb-3 col-md-4">
+                <label class="form-label">Price per night</label>
+                <div class="input-group">
+                  <span class="input-group-text">₹</span>
+                  <input
+                    type="number"
+                    name="listing[price]"
+                    class="form-control"
+                    placeholder="1200"
+                    required
+                    id="priceInput"
+                    min="0"
+                    step="1"
+                  />
+                </div>
+                <div class="invalid-feedback">Price is required.</div>
+              </div>
+
+              <div class="mb-3 col-md-8">
+                <label class="form-label">Country</label>
+                <input
+                  type="text"
+                  name="listing[country]"
+                  class="form-control"
+                  placeholder="India"
+                  required
+                  id="countryInput"
+                />
+              </div>
+            </div>
+
+            <div class="mb-4">
+              <label class="form-label">Location</label>
+              <input
+                type="text"
+                name="listing[location]"
+                class="form-control"
+                placeholder="City or area"
+                required
+                id="locationInput"
+              />
+            </div>
+
+            <!-- =========================
+             CAPACITY
+        ========================== -->
+            <h5 class="form-section-title">Capacity</h5>
+            <p class="text-muted small">
+              How many guests can your place accommodate?
+            </p>
+            <hr />
+
+            <div class="row">
+              <div class="mb-3 col-md-3">
+                <label class="form-label">Guests</label>
+                <input
+                  type="number"
+                  name="listing[maxGuests]"
+                  class="form-control"
+                  placeholder="e.g. 4"
+                  required
+                  id="guestInput"
+                />
+              </div>
+
+              <div class="mb-3 col-md-3">
+                <label class="form-label">Bedrooms</label>
+                <input
+                  type="number"
+                  name="listing[bedrooms]"
+                  class="form-control"
+                  placeholder="e.g. 2"
+                  required
+                  id="bedroomsInput"
+                />
+              </div>
+
+              <div class="mb-3 col-md-3">
+                <label class="form-label">Beds</label>
+                <input
+                  type="number"
+                  name="listing[beds]"
+                  class="form-control"
+                  placeholder="e.g. 3"
+                  required
+                  id="bedsInput"
+                />
+              </div>
+
+              <div class="mb-4 col-md-3">
+                <label class="form-label">Bathrooms</label>
+                <input
+                  type="number"
+                  name="listing[bathrooms]"
+                  class="form-control"
+                  placeholder="e.g. 2"
+                  required
+                  id="bathroomsInput"
+                />
+              </div>
+            </div>
+
+            <!-- =========================
+             SUBMIT
+        ========================== -->
+            <button class="btn btn-danger btn-lg px-5 mt-3">
+              Publish listing
+            </button>
+
+            <p class="text-muted small mt-2">
+              You can edit this listing anytime after publishing.
+            </p>
+          </form>
         </div>
+
+        <!-- Premium preview column -->
+        <div class="col-12 col-lg-5">
+          <div class="premium-preview-wrap">
+            <div class="d-flex align-items-center justify-content-between mb-2">
+              <h5 class="mb-0">Listing preview</h5>
+              <span class="text-muted small">Premium card</span>
+            </div>
+
+            <div class="listing-card-premium" aria-label="Listing card preview">
+              <div class="cover">
+                <img
+                  id="previewImage"
+                  alt="Cover preview"
+                  class="preview-image-hidden"
+                />
+                <div
+                  id="previewPlaceholder"
+                  class="h-100 w-100 d-flex align-items-center justify-content-center"
+                >
+                  <div class="premium-hint">
+                    Upload a cover image to see it here.
+                  </div>
+                </div>
+                <div class="scrim"></div>
+              </div>
+              <div class="body">
+                <p class="title" id="previewTitle">Your listing title</p>
+                <div class="meta">
+                  <span id="previewLocation" class="meta-loc">
+                    City or area
+                  </span>
+                  <span class="text-muted">•</span>
+                  <span id="previewCountry" class="meta-loc">Country</span>
+                  <span class="price">
+                    ₹
+                    <span id="previewPrice">0</span>
+                    <span class="text-muted fw-normal">/ night</span>
+                  </span>
+                </div>
+                <div class="badges" id="previewBadges">
+                  <span class="badge-soft">Category</span>
+                </div>
+              </div>
+            </div>
+
+            <p class="text-muted small mt-2 mb-0">
+              This preview matches the “premium” card styling (shadow, hover,
+              badges, and image ratio).
+            </p>
+          </div>
+        </div>
+      </div>
     </div>
-</body>
-</html>
+  </div>
+</div>
+
+<div
+  id="newListingPageData"
+  data-show-profile-warning-modal="<%= showProfileWarningModal ? 'true' : 'false' %>"
+  hidden
+></div>
+
+<!-- ========================================
+     PROFILE INCOMPLETE WARNING MODAL
+     Shows when user tries to create listing without complete profile
+     ======================================== -->
+<div
+  class="modal fade"
+  id="profileWarningModal"
+  tabindex="-1"
+  data-bs-backdrop="static"
+  data-bs-keyboard="false"
+>
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h5 class="modal-title">
+          <i class="fa-solid fa-exclamation-circle text-warning"></i>
+          Complete Your Profile
+        </h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+        ></button>
+      </div>
+
+      <!-- Modal Body -->
+      <div class="modal-body">
+        <p class="mb-0">
+          You need to complete your profile in order to host a listing on
+          Wanderlust. This helps build trust with guests and showcases who you
+          are.
+        </p>
+      </div>
+
+      <!-- Modal Footer -->
+      <div class="modal-footer">
+        <button class="btn btn-secondary" id="cancelProfileWarningBtn">
+          Cancel
+        </button>
+        <a href="/profile/complete" class="btn btn-primary">Complete Profile</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="/js/new-listing.js"></script>

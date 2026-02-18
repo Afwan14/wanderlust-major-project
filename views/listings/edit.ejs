@@ -1,69 +1,235 @@
 <% layout("/layouts/boilerplate") %>
-<body>
-    <div class="row mt-3">
-        <div class="col-8 offset-2">
-            <h3>Edit this listing</h3>
-            <form method="POST" action="/listings/<%= listing._id %>?_method=PUT" class="needs-validation" novalidate enctype="multipart/form-data">
 
-                <div class="mb-3">
-                    <label for="title" class="form-label">Title</label>
-                    <input type="text" value="<%= listing.title %>" name="listing[title]" class="form-control" required>
-                    <div class="valid-feedback">
-                        Title looks good!
-                    </div>
-                    <div class="invalid-feedback">
-                        Relevant title is required!
-                    </div>
-                </div>
-                
-                <div class="mb-3">
-                    <label for="description" class="form-label">Description</label>
-                    <textarea name="listing[description]" class="form-control" required><%= listing.description %></textarea>
-                    <div class="invalid-feedback">
-                        Description is required!
-                    </div>
-                </div>
+<div class="row mt-4">
+  <div class="col-8 offset-2">
 
-                <div class="mb-3">
-                    Current Image<br>
-                    <img src="<%= originalImageUrl %>">
-                </div>
+    <!-- =========================
+         PAGE HEADER
+    ========================= -->
+    <h2>Edit listing</h2>
+    <p class="text-muted">
+      Make changes to your listing. Updates will be visible immediately.
+    </p>
 
-                <div class="mb-3">
-                    <label for="image" class="form-label">Upload New Image</label>
-                    <input type="file" name="listing[image]" class="form-control">
-                </div>
+    <hr class="my-4">
 
-                <div class="row">
-                    <div class="mb-3 col-md-4">
-                        <label for="price" class="form-label">Price</label>
-                        <input type="number" value="<%= listing.price %>" name="listing[price]" class="form-control" required>
-                        <div class="invalid-feedback">
-                            Price is required!
-                        </div>
-                    </div>
+    <!-- =========================
+         EDIT LISTING FORM
+    ========================= -->
+    <form
+      method="POST"
+      action="/listings/<%= listing._id %>?_method=PUT"
+      class="needs-validation"
+      novalidate
+      enctype="multipart/form-data"
+    >
 
-                    <div class="mb-3 col-md-8">
-                        <label for="country" class="form-label">Country</label>
-                        <input type="text" value="<%= listing.country %>" name="listing[country]" class="form-control" required>
-                        <div class="invalid-feedback">
-                            Country name is required!
-                        </div>
-                    </div>
-                </div>
+      <!-- =========================
+           BASIC INFORMATION
+      ========================= -->
+      <h5 class="mb-3">Basic information</h5>
 
-                <div class="mb-3">
-                    <label for="location" class="form-label">Location</label>
-                    <input type="text" value="<%= listing.location %>" name="listing[location]" class="form-control" required>
-                    <div class="invalid-feedback">
-                        Location is required!
-                    </div>
-                </div>
-                
-                <button class="btn btn-dark edit-btn mt-3">Edit</button>
-                <br><br>
-            </form>
+      <div class="mb-3">
+        <label class="form-label">Title</label>
+        <input
+          type="text"
+          name="listing[title]"
+          class="form-control"
+          value="<%= listing.title %>"
+          placeholder="e.g. Cozy beachfront cottage"
+          required
+        >
+        <div class="invalid-feedback">Title is required.</div>
+      </div>
+
+      <div class="mb-4">
+        <label class="form-label">Description</label>
+        <textarea
+          name="listing[description]"
+          class="form-control"
+          rows="4"
+          placeholder="Tell guests what makes your place special"
+          required
+        ><%= listing.description %></textarea>
+        <div class="invalid-feedback">Description is required.</div>
+      </div>
+
+      <!-- =========================
+           CATEGORY
+      ========================= -->
+      <div class="category-filter mb-4">
+        <label class="form-label">Category</label><br>
+
+        <button type="button" class="category-btn" id="categoryBtn">
+          <span>Category</span>
+          <span class="category-summary" id="categorySummary"></span>
+          <i class="fa-solid fa-chevron-down"></i>
+        </button>
+
+        <div class="category-dropdown" id="categoryDropdown">
+          <% const categories = [
+            "Iconic Cities",
+            "Penthouses",
+            "Design Homes",
+            "Oceanfront",
+            "Villas",
+            "Mountains",
+            "Wellness",
+            "For Two",
+            "Rooms",
+            "Heritage",
+            "Islands",
+            "Waterfront",
+            "Chalets",
+            "Desert",
+            "Forest",
+            "Vineyards"
+          ]; %>
+
+          <% categories.forEach(cat => { %>
+            <label class="category-option">
+              <input
+                type="checkbox"
+                value="<%= cat %>"
+                <%= listing.category.includes(cat) ? "checked" : "" %>
+              >
+              <span><%= cat %></span>
+            </label>
+          <% }) %>
+
+          <div class="category-actions">
+            <button type="button" id="applyCategory" class="apply-btn">Apply</button>
+            <button type="button" id="clearCategory" class="clear-btn">Clear</button>
+          </div>
         </div>
-    </div> 
-</body>
-</html>
+      </div>
+
+      <!-- Hidden category inputs -->
+      <div id="hiddenCategories"></div>
+
+      <hr class="my-4">
+
+      <!-- =========================
+           PHOTOS
+      ========================= -->
+      <h5 class="mb-3">Photos</h5>
+
+      <div class="mb-3">
+        <p class="text-muted mb-2">Current image</p>
+        <img
+          src="<%= originalImageUrl %>"
+          class="rounded-3 edit-listing-current-image"
+          alt="Listing image"
+        >
+      </div>
+
+      <div class="mb-4">
+        <label class="form-label">Replace image (optional)</label>
+        <input type="file" name="listing[image]" class="form-control">
+        <small class="text-muted">
+          Upload a new photo only if you want to change the current one.
+        </small>
+      </div>
+
+      <div class="mb-4">
+        <label class="form-label">Additional gallery images (Optional)</label>
+        <input
+          type="file"
+          name="listing[additionalImages]"
+          class="form-control"
+          accept="image/*"
+          multiple
+        >
+        <small class="text-muted">
+          Upload up to 2 additional images for the gallery. If not provided, cover image will be used.
+        </small>
+      </div>
+
+      <hr class="my-4">
+
+      <!-- =========================
+           PRICING & LOCATION
+      ========================= -->
+      <h5 class="mb-3">Pricing & location</h5>
+
+      <div class="row">
+        <div class="col-md-4 mb-3">
+          <label class="form-label">Price (per night)</label>
+          <input
+            type="number"
+            name="listing[price]"
+            class="form-control"
+            value="<%= listing.price %>"
+            required
+          >
+        </div>
+
+        <div class="col-md-8 mb-3">
+          <label class="form-label">Country</label>
+          <input
+            type="text"
+            name="listing[country]"
+            class="form-control"
+            value="<%= listing.country %>"
+            required
+          >
+        </div>
+      </div>
+
+      <div class="mb-4">
+        <label class="form-label">Location</label>
+        <input
+          type="text"
+          name="listing[location]"
+          class="form-control"
+          value="<%= listing.location %>"
+          required
+        >
+      </div>
+
+      <hr class="my-4">
+
+      <!-- =========================
+           PROPERTY DETAILS
+      ========================= -->
+      <h5 class="mb-3">Property details</h5>
+
+      <div class="row">
+        <div class="col-md-3 mb-3">
+          <label class="form-label">Guests</label>
+          <input type="number" name="listing[maxGuests]" class="form-control" value="<%= listing.maxGuests %>" required>
+        </div>
+
+        <div class="col-md-3 mb-3">
+          <label class="form-label">Bedrooms</label>
+          <input type="number" name="listing[bedrooms]" class="form-control" value="<%= listing.bedrooms %>" required>
+        </div>
+
+        <div class="col-md-3 mb-3">
+          <label class="form-label">Beds</label>
+          <input type="number" name="listing[beds]" class="form-control" value="<%= listing.beds %>" required>
+        </div>
+
+        <div class="col-md-3 mb-4">
+          <label class="form-label">Bathrooms</label>
+          <input type="number" name="listing[bathrooms]" class="form-control" value="<%= listing.bathrooms %>" required>
+        </div>
+      </div>
+
+      <!-- =========================
+           ACTIONS
+      ========================= -->
+      <div class="d-flex gap-3 mt-4">
+        <button class="btn btn-dark px-4" type="submit">Save changes</button>
+        <a href="/listings/<%= listing._id %>" class="btn btn-outline-secondary">
+          Cancel
+        </a>
+      </div>
+
+      <p class="text-muted mt-3">
+        You can continue editing this listing anytime.
+      </p>
+
+    </form>
+  </div>
+</div>

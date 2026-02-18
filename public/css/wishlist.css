@@ -1,0 +1,187 @@
+/* ===============================
+   WISHLIST CARD POLISH
+================================ */
+
+.wishlist-page .listing-card {
+  border-radius: 18px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease;
+}
+
+.wishlist-page .listing-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.12);
+}
+
+/* Image */
+.wishlist-page .listing-card img {
+  height: 240px;
+  object-fit: cover;
+}
+
+/* Content block */
+.wishlist-page .card-body {
+  padding: 14px 16px 10px;
+  border-top: 1px solid #f0f0f0;
+}
+
+/* Title */
+.wishlist-page .listing-title {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #111;
+  margin-bottom: 4px;
+  text-decoration: none;
+}
+
+/* Remove blue underline look */
+.wishlist-page .listing-link h6,
+.wishlist-page .listing-link p {
+  text-decoration: none;
+}
+
+/* Price */
+.wishlist-page .listing-price {
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: var(--wl-text);
+}
+
+.wishlist-page .listing-price span {
+  font-weight: 400;
+  color: var(--wl-text-muted);
+}
+
+/* Remove button (secondary action now) */
+.wishlist-page .remove-wishlist-btn {
+  border-radius: 999px;
+  padding: 10px 14px;
+  font-size: 0.9rem;
+  font-weight: 500;
+
+  border: 1px solid var(--wl-brand);
+  color: var(--wl-brand);
+  background: var(--wl-surface);
+
+  transition:
+    background 0.2s ease,
+    color 0.2s ease;
+}
+
+.wishlist-page .remove-wishlist-btn:hover {
+  background: var(--wl-brand);
+  color: #1c1c1c;
+}
+
+/* Tighten bottom spacing */
+.wishlist-page .px-3.pb-3 {
+  padding-top: 6px;
+}
+
+/* ===============================
+   REMOVE LINK UNDERLINE / BLUE
+   FOR LISTING CARDS
+================================ */
+
+/* Reset link styles inside cards */
+.listing-link,
+.listing-link:visited,
+.listing-link:hover,
+.listing-link:active {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* Ensure title never looks like a link */
+.listing-link .listing-title {
+  color: var(--wl-text);
+  text-decoration: none;
+}
+
+/* Ensure price never looks like a link */
+.listing-link .listing-price,
+.listing-link .listing-price span {
+  color: var(--wl-text);
+  text-decoration: none;
+}
+
+/* Optional: underline title ONLY on hover (nice UX) */
+.listing-card:hover .listing-title {
+  text-decoration: underline;
+}
+
+/* ===============================
+   EMPTY WISHLIST STATE
+================================ */
+
+.wishlist-empty {
+  min-height: 60vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.wishlist-empty .empty-icon {
+  font-size: 3rem;
+  color: #ddd;
+}
+
+.wishlist-empty h4 {
+  font-weight: 600;
+  color: #111;
+}
+
+.wishlist-empty p {
+  max-width: 320px;
+}
+
+/* ===============================
+   HEART ICON – CLEAN (NO WHITE BG)
+================================ */
+
+/* ===============================
+   HEART ICON – FINAL RESET
+================================ */
+
+.save-btn {
+  all: unset; /* 🔥 removes ALL default & bootstrap styles */
+  position: absolute;
+  top: 12px;
+  right: 12px;
+
+  cursor: pointer;
+  z-index: 5;
+}
+
+.save-btn i {
+  font-size: 1.4rem;
+  color: #fff;
+  text-shadow: 0 2px 6px rgba(0, 0, 0, 0.45);
+  transition:
+    transform 0.2s ease,
+    color 0.2s ease;
+}
+
+/* Hover */
+.listing-card:hover .save-btn i {
+  transform: scale(1.12);
+}
+
+/* Saved state */
+.save-btn.saved i {
+  color: var(--wl-brand);
+  text-shadow: none;
+}
+
+/* Optional fade-in */
+.save-btn {
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.listing-card:hover .save-btn {
+  opacity: 1;
+}

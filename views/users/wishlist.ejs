@@ -1,0 +1,79 @@
+<% layout("/layouts/boilerplate") %>
+<head>
+  <!-- Wishlist page specific styles -->
+  <link rel="stylesheet" href="/css/wishlist.css" />
+</head>
+
+<div class="container mt-4 wishlist-page">
+  <h3 class="mb-4">My Wishlist</h3>
+
+  <p class="text-muted mb-4">Places you’ve saved for later</p>
+
+  <% if (listings.length === 0) { %>
+
+  <div class="wishlist-empty text-center mt-5">
+    <div class="empty-icon mb-3">
+      <i class="fa-regular fa-heart"></i>
+    </div>
+
+    <h4 class="mb-2">Your wishlist is empty</h4>
+
+    <p class="text-muted mb-4">
+      Save places you love by tapping the ❤️ on a listing.
+    </p>
+
+    <a href="/listings" class="btn btn-dark px-4 btn1">Explore listings</a>
+  </div>
+
+  <% } else { %>
+
+  <!-- existing wishlist grid -->
+  <div class="row">
+    <% listings.forEach(listing => { %>
+    <!-- cards -->
+    <% }) %>
+  </div>
+
+  <% } %>
+
+  <div class="row">
+    <% listings.forEach(listing => { %>
+
+    <!-- ✅ GRID COLUMN + STABLE WRAPPER -->
+    <div class="col-12 col-md-6 col-lg-4 col-xl-3 mb-4" data-wishlist-card>
+      <div class="card listing-card h-100">
+        <!-- CLICKABLE CARD CONTENT -->
+        <a href="/listings/<%= listing._id %>" class="listing-link">
+          <img
+            src="<%= listing.image.url %>"
+            class="card-img-top"
+            alt="listing image"
+          />
+
+          <div class="card-body">
+            <h6 class="listing-title"><%= listing.title %></h6>
+
+            <p class="listing-price">
+              ₹ <%= listing.price.toLocaleString("en-IN") %>
+              <span>/ night</span>
+            </p>
+          </div>
+        </a>
+
+        <!-- REMOVE BUTTON -->
+        <div class="px-3 pb-3">
+          <button
+            type="button"
+            class="btn btn-outline-danger btn-sm w-100 remove-wishlist-btn"
+            data-id="<%= listing._id %>"
+          >
+            <i class="fa-solid fa-heart-crack me-1"></i>
+            Remove from wishlist
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <% }) %>
+  </div>
+</div>

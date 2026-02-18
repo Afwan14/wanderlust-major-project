@@ -1,31 +1,68 @@
 <% layout("/layouts/boilerplate") %>
+<head>
+  <!-- Authentication page specific styles -->
+  <link rel="stylesheet" href="/css/auth.css" />
+</head>
 
-<div class="row mt-3">
-    <h1 class="col-6 offset-3">Login on Wanderlust</h1>
-    <div class="col-6 offset-3">
-        <form action="/login" method="POST" class="needs-validation" novalidate>
-            <div class="mb-3">
-                <label for="username" class="form-label">Username</label>
-                <input type="text" name="username" class="form-control" id="username" required>
-                <div class="valid-feedback">
-                    Name looks good!
-                </div>
-                <div class="invalid-feedback">
-                    Relevant Name is required!
-                </div>
-            </div>
-
-            <div class="mb-3">
-                <label for="password" class="form-label">Password</label>
-                <input type="password" name="password" class="form-control" id="password" required>
-                <div class="valid-feedback">
-                    Password looks good!
-                </div>
-                <div class="invalid-feedback">
-                    Password is required!
-                </div>
-            </div>
-            <button class="btn btn-success">Sign Up</button>
-        </form>
+<!-- ========================================
+     USER LOGIN PAGE
+     Account login form for existing users
+     ======================================== -->
+<div class="auth-wrapper">
+  <div class="auth-card">
+    <!-- Page Header with Logo and Branding -->
+    <div class="text-center mb-4">
+      <i class="fa-regular fa-compass auth-logo"></i>
+      <h3 class="mt-2">Login to Wanderlust</h3>
+      <p class="text-muted small">
+        Welcome back, explore stays around the world
+      </p>
     </div>
+    <!-- Login Form - POST to /login route -->
+    <form action="/login" method="POST" class="needs-validation" novalidate>
+      <!-- Username Input Field -->
+      <div class="mb-3">
+        <label for="username" class="form-label">Username</label>
+        <input
+          type="text"
+          name="username"
+          class="form-control"
+          id="username"
+          placeholder="Enter your username"
+          required
+        />
+        <div class="invalid-feedback">Username is required</div>
+      </div>
+      <!-- Password Input Field -->
+      <div class="mb-3">
+        <label for="password" class="form-label">Password</label>
+        <input
+          type="password"
+          name="password"
+          class="form-control"
+          id="password"
+          placeholder="Enter your password"
+          required
+        />
+        <div class="invalid-feedback">Password is required</div>
+      </div>
+
+      <!-- Forgot Password Link -->
+      <div class="text-end mb-2">
+        <a href="/forgot-password" class="text-danger small">
+          Forgot password?
+        </a>
+      </div>
+
+      <!-- Submit Button - Triggers form validation and login -->
+      <button class="btn btn-danger w-100 mt-2">Log in</button>
+    </form>
+
+    <hr />
+    <!-- Signup Link - Redirect new users to signup page -->
+    <p class="text-center small mb-0">
+      Don't have an account?
+      <a href="/signup" class="text-danger fw-semibold">Sign up</a>
+    </p>
+  </div>
 </div>

@@ -1,0 +1,127 @@
+<% layout("/layouts/boilerplate") %>
+
+<head>
+  <link rel="stylesheet" href="/css/bookings.css" />
+</head>
+
+<div class="container my-5 bookings-page">
+  <section class="bookings-header">
+    <h1>Your Stays</h1>
+    <p>Manage reservations and upcoming stays</p>
+    <div class="bookings-divider" aria-hidden="true"></div>
+
+    <% if (bookings.length > 0) { %>
+    <div class="booking-filters" role="tablist" aria-label="Booking filters">
+      <button class="booking-filter active" type="button" data-filter="all">
+        All
+      </button>
+      <button class="booking-filter" type="button" data-filter="upcoming">
+        Upcoming
+      </button>
+      <button class="booking-filter" type="button" data-filter="past">
+        Past
+      </button>
+      <button class="booking-filter" type="button" data-filter="cancelled">
+        Cancelled
+      </button>
+    </div>
+    <% } %>
+  </section>
+
+  <% if (bookings.length === 0) { %>
+
+  <!-- =========================
+         EMPTY STATE (CENTERED)
+    ========================= -->
+  <div class="booking-empty">
+    <div class="booking-empty-inner">
+      <div class="booking-empty-illustration" aria-hidden="true">
+        <i class="fa-regular fa-calendar-check"></i>
+      </div>
+      <h4>No bookings yet.</h4>
+      <p class="booking-empty-text">
+        When guests reserve your listing, they'll appear here.
+      </p>
+      <a href="/listings/my" class="btn booking-empty-btn">
+        View your listings
+      </a>
+    </div>
+  </div>
+
+  <% } else { %>
+
+  <!-- =========================
+         BOOKINGS GRID
+    ========================= -->
+  <div class="row stays-list">
+    <% bookings.forEach(booking => { %>
+    <% const filterStatus = booking.statusClass === "status-completed" ? "past" : booking.statusClass === "status-upcoming" ? "upcoming" : "cancelled"; %>
+    <% const bookedOn = new Date(parseInt(booking.id.toString().slice(0, 8), 16) * 1000).toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" }); %>
+
+    <div class="col-12 booking-item" data-status="<%= filterStatus %>">
+      <a
+        class="stay-card"
+        href="<%= booking.listingHref %>"
+        aria-label="View stay details"
+      >
+        <div class="stay-card-media">
+          <% if (booking.hasImage) { %>
+          <img src="<%= booking.imageUrl %>" alt="<%= booking.imageAlt %>" />
+          <% } else { %>
+          <div class="stay-card-placeholder">Listing unavailable</div>
+          <% } %>
+        </div>
+
+        <div class="stay-card-body">
+          <div class="stay-card-main">
+            <h3 class="stay-card-title"><%= booking.listingTitle %></h3>
+
+            <div class="stay-card-meta-grid">
+              <p class="stay-card-meta-item">
+                <span class="meta-label">Guest</span>
+                <span class="meta-value">You</span>
+              </p>
+              <p class="stay-card-meta-item">
+                <span class="meta-label">Dates</span>
+                <span class="meta-value">
+                  <%= booking.startLabel %> → <%= booking.endLabel %>
+                </span>
+              </p>
+              <p class="stay-card-meta-item">
+                <span class="meta-label">Total price</span>
+                <span class="meta-value">
+                  <%= booking.totalPrice ?
+                  `₹${Number(booking.totalPrice).toLocaleString("en-IN")}` :
+                  "View details" %>
+                </span>
+              </p>
+              <p class="stay-card-meta-item">
+                <span class="meta-label">Booking date</span>
+                <span class="meta-value"><%= bookedOn %></span>
+              </p>
+            </div>
+
+            <p class="stay-card-location"><%= booking.locationText %></p>
+          </div>
+
+          <div class="stay-card-meta">
+            <span class="stay-status-pill <%= booking.statusClass %>">
+              <%= booking.statusLabel %>
+            </span>
+            <span class="stay-card-arrow">&#8594;</span>
+          </div>
+        </div>
+      </a>
+    </div>
+
+    <% }) %>
+  </div>
+
+  <div class="booking-filter-empty d-none" id="bookingFilterEmpty">
+    <p>No bookings found for this filter.</p>
+  </div>
+
+  <% } %>
+</div>
+
+<script src="/js/bookings-filters.js"></script>

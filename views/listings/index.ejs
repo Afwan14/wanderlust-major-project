@@ -1,87 +1,392 @@
 <% layout("/layouts/boilerplate") %>
-     <div id="filters">
-        <div class="filter">
-            <div><i class="fa-solid fa-fire"></i></div>
-            <p>Trending</p>
-        </div>
-        <div class="filter">
-            <div><i class="fa-solid fa-bed"></i></div>
-            <p>Rooms</p>
-        </div>
-        <div class="filter">
-            <div><i class="fa-solid fa-city"></i></div>
-            <p>Iconic Cities</p>
-        </div>
-        <div class="filter">
-            <div><i class="fa-solid fa-mountain-sun"></i></div>
-            <p>Mountains</p>
-        </div>
-        <div class="filter">
-            <div><i class="fa-brands fa-fort-awesome"></i></div>
-            <p>Castle</p>
-        </div>
-        <div class="filter">
-            <div><i class="fa-solid fa-person-swimming"></i></div>
-            <p>Amazing Pools</p>
-        </div>
-        <div class="filter">
-            <div><i class="fa-solid fa-tent"></i></div>
-            <p>Camping</p>
-        </div>
-        <div class="filter">
-            <div><i class="fa-solid fa-tractor"></i></div>
-            <p>Farms</p>
-        </div>
-        <div class="filter">
-            <div><i class="fa-solid fa-umbrella-beach"></i></div>
-            <p>Beach</p>
-        </div>
-         <div class="filter">
-            <div><i class="fa-solid fa-snowflake"></i></div>
-            <p>Snowy</p>
-        </div>
-        <div class="filter">
-            <div><i class="fa-solid fa-ship"></i></div>
-            <p>Boats</p>
-        </div>
+<head>
+  <!-- Listings page specific styles -->
+  <link rel="stylesheet" href="/css/listing-cards.css">
+  <link rel="stylesheet" href="/css/card-text.css">
+  <link rel="stylesheet" href="/css/filter-bar.css">
+  <link rel="stylesheet" href="/css/listing-responsive.css">
+</head>
 
-        <div class="tax-toggle">
-            <div class="form-check-reverse form-switch">
-                <input class="form-check-input" type="checkbox" role="switch" id="switchCheckDefault">
-                <label class="form-check-label" for="switchCheckDefault">Display total after taxes</label>
-            </div>
-        </div>
-     </div>
-    <div class="row row-cols-lg-3 row-cols-md-2 row-cols-sm-1 mt-3">
-        <% for (let listing of allListings) { %>
-            <a href="/listings/<%= listing._id %>" class="listing-link">
-                <div class="card col listing-card">
-                    <img src="<%= listing.image.url %>" class="card-img-top" alt="listing_image">
-                    <div class="card-img-overlay"></div>
-                    <div class="card-body">
-                        <p class="card-text">
-                            <b><%= listing.title %></b><br>
-                           &#8377;
-                           <%= listing.price ? listing.price.toLocaleString("en-IN") : "N/A" %> / night
-                           <i class="tax-info"> &nbsp; &nbsp;+18 GST</i>
-                        </p>
-                    </div>
-                </div>
-            </a>
-        <% } %>
+<section class="listings-header">
+  <h1>Exceptional Residences</h1>
+  <p>Across the World’s Finest Destinations.</p>
+</section>
+
+<!-- ========================================
+     FILTER BAR - CATEGORY FILTERS
+     Horizontal scrollable filter buttons for browsing by category
+     ======================================== -->
+<div class="filters-bar">
+
+  <!-- LEFT SIDE: Category Filter Buttons -->
+  <div class="filters-left">
+
+    <!-- Scroll Left Button -->
+    <button class="scroll-btn left" onclick="scrollFilters(-250)">‹</button>
+
+    <!-- FILTER CATEGORIES - Horizontally scrollable -->
+    <!-- Each filter links to /listings?category=CategoryName -->
+    <div id="filters">
+
+      <a href="/listings?category=Iconic Cities"
+         class="filter <%= category === 'Iconic Cities' ? 'active-filter' : '' %>">
+        <i class="fa-solid fa-city"></i>
+        <p>Iconic Cities</p>
+      </a>
+
+      <a href="/listings?category=Penthouses"
+         class="filter <%= category === 'Penthouses' ? 'active-filter' : '' %>">
+        <i class="fa-solid fa-building"></i>
+        <p>Penthouses</p>
+      </a>
+
+      <a href="/listings?category=Design Homes"
+         class="filter <%= category === 'Design Homes' ? 'active-filter' : '' %>">
+        <i class="fa-solid fa-compass-drafting"></i>
+        <p>Design Homes</p>
+      </a>
+
+      <a href="/listings?category=Oceanfront"
+         class="filter <%= category === 'Oceanfront' ? 'active-filter' : '' %>">
+        <i class="fa-solid fa-umbrella-beach"></i>
+        <p>Oceanfront</p>
+      </a>
+
+      <a href="/listings?category=Villas"
+         class="filter <%= category === 'Villas' ? 'active-filter' : '' %>">
+        <i class="fa-solid fa-house"></i>
+        <p>Villas</p>
+      </a>
+
+      <a href="/listings?category=Mountains"
+         class="filter <%= category === 'Mountains' ? 'active-filter' : '' %>">
+        <i class="fa-solid fa-mountain"></i>
+        <p>Mountains</p>
+      </a>
+
+      <a href="/listings?category=Wellness"
+         class="filter <%= category === 'Wellness' ? 'active-filter' : '' %>">
+        <i class="fa-solid fa-spa"></i>
+        <p>Wellness</p>
+      </a>
+
+      <a href="/listings?category=For Two"
+         class="filter <%= category === 'For Two' ? 'active-filter' : '' %>">
+        <i class="fa-solid fa-heart"></i>
+        <p>For Two</p>
+      </a>
+
+      <a href="/listings?category=Rooms"
+         class="filter <%= category === 'Rooms' ? 'active-filter' : '' %>">
+        <i class="fa-solid fa-bed"></i>
+        <p>Rooms</p>
+      </a>
+
+      <a href="/listings?category=Heritage"
+         class="filter <%= category === 'Heritage' ? 'active-filter' : '' %>">
+        <i class="fa-solid fa-landmark"></i>
+        <p>Heritage</p>
+      </a>
+
+      <a href="/listings?category=Islands"
+         class="filter <%= category === 'Islands' ? 'active-filter' : '' %>">
+        <i class="fa-solid fa-water"></i>
+        <p>Islands</p>
+      </a>
+
+      <a href="/listings?category=Waterfront"
+         class="filter <%= category === 'Waterfront' ? 'active-filter' : '' %>">
+        <i class="fa-solid fa-person-swimming"></i>
+        <p>Waterfront</p>
+      </a>
+
+      <a href="/listings?category=Chalets"
+         class="filter <%= category === 'Chalets' ? 'active-filter' : '' %>">
+        <i class="fa-solid fa-tree"></i>
+        <p>Chalets</p>
+      </a>
+
+      <a href="/listings?category=Desert"
+         class="filter <%= category === 'Desert' ? 'active-filter' : '' %>">
+        <i class="fa-solid fa-sun"></i>
+        <p>Desert</p>
+      </a>
+
+      <a href="/listings?category=Forest"
+         class="filter <%= category === 'Forest' ? 'active-filter' : '' %>">
+        <i class="fa-solid fa-leaf"></i>
+        <p>Forest</p>
+      </a>
+
+      <a href="/listings?category=Vineyards"
+         class="filter <%= category === 'Vineyards' ? 'active-filter' : '' %>">
+        <i class="fa-solid fa-wine-glass"></i>
+        <p>Vineyards</p>
+      </a>
+
     </div>
 
-<script>
-    let taxSwitch = document.getElementById("switchCheckDefault");
-    taxSwitch.addEventListener("click", () => {
-        let taxInfo = document.getElementsByClassName("tax-info");
-        for (info of taxInfo) {
-            if(info.style.display != "inline") {
-                info.style.display = "inline";
-            } else {
-                info.style.display = "none";
-            }
-            
-        }
-    });
-</script>
+    <!-- Scroll Right Button -->
+    <button class="scroll-btn right" onclick="scrollFilters(250)">›</button>
+  </div>
+
+</div>
+
+<!-- ========================================
+     ADVANCED FILTER TOGGLE BUTTON
+     Opens/closes the advanced filter panel
+     ======================================== -->
+<div>
+  <button
+    class="btn btn-outline-dark mb-3 advanced-filters-btn"
+    type="button"
+    data-bs-toggle="collapse"
+    data-bs-target="#filterBox"
+    aria-expanded="false"
+    aria-controls="filterBox">
+    <i class="fa-solid fa-sliders"></i> Filters
+  </button>
+
+  <!-- Advanced filter form panel (hidden by default) -->
+  <div class="collapse" id="filterBox">
+
+    <!-- ADVANCED FILTER FORM -->
+    <!-- Allows filtering by search term, price range, and country -->
+        <form action="/listings" method="GET"
+          class="row gx-2 align-items-center mb-4 advanced-filter-form">
+
+      <!-- Search Input -->
+      <div class="col-12 col-lg-4 advanced-filter-col search-col">
+        <input type="text" name="search" class="form-control"
+               placeholder="Search destinations"
+               value="<%= search || '' %>">
+      </div>
+
+      <!-- Minimum Price Input -->
+      <div class="col-6 col-md-3 col-lg-2 advanced-filter-col">
+        <input type="number" name="minPrice" class="form-control"
+               placeholder="Min ₹"
+               value="<%= minPrice || '' %>">
+      </div>
+
+      <!-- Maximum Price Input -->
+      <div class="col-6 col-md-3 col-lg-2 advanced-filter-col">
+        <input type="number" name="maxPrice" class="form-control"
+               placeholder="Max ₹"
+               value="<%= maxPrice || '' %>">
+      </div>
+
+      <!-- Country Selector -->
+      <div class="col-12 col-md-4 col-lg-2 advanced-filter-col">
+        <select name="country" class="form-select">
+          <option value="">All Countries</option>
+          <option value="India" <%= country==="India" ? "selected" : "" %>>India</option>
+          <option value="USA" <%= country==="USA" ? "selected" : "" %>>USA</option>
+          <option value="France" <%= country==="France" ? "selected" : "" %>>France</option>
+        </select>
+      </div>
+
+      <!-- Apply Filters Button -->
+      <div class="col-6 col-md-1 col-lg-1 advanced-filter-col actions-col">
+        <button class="btn btn-danger px-4">Apply</button>
+      </div>
+
+      <!-- Clear Filters Link -->
+      <div class="col-6 col-md-1 col-lg-1 advanced-filter-col actions-col">
+        <a href="/listings" class="btn btn-outline-secondary px-4">
+          Clear
+        </a>
+      </div>
+
+    </form>
+  </div>
+</div>
+
+<!-- ========================================
+     EMPTY STATE - No listings found
+     Shows when search returns no results
+     ======================================== -->
+<% if (allListings.length === 0) { %>
+
+  <div>
+    <div class="d-flex justify-content-center align-items-center listing-empty-state">
+      <div class="text-center">
+
+        <!-- Different message based on filter applied -->
+        <% if (category) { %>
+          <h4>No listings available</h4>
+          <p class="text-muted">
+            No listings found for "<strong><%= category %></strong>" category.
+          </p>
+        <% } else { %>
+          <h4>No listings match your filters 😢</h4>
+        <% } %>
+
+        <!-- Link to view all listings -->
+        <a href="/listings" class="btn btn-outline-dark mt-3 btn-view">
+          View all listings
+        </a>
+
+      </div>
+    </div>
+  </div>
+
+<% } else { %>
+
+<!-- ========================================
+     LISTING COUNT
+     Shows number of results from search/filter
+     ======================================== -->
+<div class="mb-3">
+  <% if (category || search || minPrice || maxPrice || country) { %>
+    <h6 class="text-muted">
+      <%= allListings.length %> listing<%= allListings.length !== 1 ? "s" : "" %> found
+    </h6>
+  <% } %>
+</div>
+
+<!-- ========================================
+     LISTINGS GRID
+     Responsive grid displaying all listings
+     ======================================== -->
+<div>
+  <div class="row mt-3">
+
+    <!-- Loop through all listings -->
+    <% allListings.forEach(listing => { %>
+
+      <!-- Responsive grid column (12/6/4/3 for different screen sizes) -->
+      <div class="col-12 col-md-6 col-lg-4 col-xl-4 mb-5 listing-grid-item">
+
+        <div class="card listing-card">
+
+          <%
+            // Calculate average rating
+            const reviews = listing.reviews || [];
+            const avgRating = reviews.length > 0
+              ? reviews.reduce((sum, r) => sum + (r.overall || 0), 0) / reviews.length
+              : 0;
+
+            // Check if in wishlist
+            const isSaved = userWishlist.includes(listing._id.toString());
+
+            // Check if listing is new (created within last 7 days)
+            const isNew = listing.createdAt &&
+              (new Date() - new Date(listing.createdAt)) < (7 * 24 * 60 * 60 * 1000);
+          %>
+
+          <!-- Link to individual listing detail page -->
+          <a href="/listings/<%= listing._id %>" class="listing-link">
+
+            <!-- Image container with badges -->
+            <div class="listing-image-container">
+              <!-- Listing Image -->
+              <img src="<%= listing.image.url %>"
+                   class="card-img-top"
+                   alt="<%= listing.title %>">
+
+              <!-- Card Action Buttons (Wishlist & Share) -->
+              <div class="card-action-buttons">
+                <!-- Wishlist save button -->
+                <button
+                  class="card-icon-btn save-btn <%= isSaved ? 'saved' : '' %>"
+                  data-id="<%= listing._id %>"
+                  type="button"
+                  aria-label="Save to wishlist">
+                  <i class="fa-solid fa-heart"></i>
+                </button>
+
+                <!-- Share button -->
+                <button
+                  class="card-icon-btn share-btn-card"
+                  data-url="/listings/<%= listing._id %>"
+                  data-title="<%= listing.title %>"
+                  type="button"
+                  aria-label="Share listing"
+                  onclick="shareListingCard(event, '/listings/<%= listing._id %>', '<%= listing.title %>')">
+                  <i class="fa-solid fa-arrow-up-from-bracket"></i>
+                </button>
+              </div>
+
+              <!-- Card overlay for hover effect -->
+              <div class="card-img-overlay"></div>
+
+              <!-- Image gradient overlay for better text readability -->
+              <div class="listing-gradient"></div>
+
+              <!-- Badges overlay -->
+              <div class="listing-badges">
+                <% if (isNew) { %>
+                  <span class="badge-new">New listing</span>
+                <% } %>
+                <% if (listing.category && listing.category.length > 0) { %>
+                  <span class="badge-category"><%= listing.category[0] %><% if (listing.country) { %> · <%= listing.country %><% } %></span>
+                <% } %>
+              </div>
+            </div>
+
+            <!-- Card Body with enhanced content -->
+            <div class="card-body">
+              <!-- Location with icon -->
+              <div class="listing-location">
+                <i class="fa-solid fa-location-dot"></i>
+                <span><%= listing.location || 'Location' %><% if (listing.country) { %>, <%= listing.country %><% } %></span>
+              </div>
+
+              <!-- Listing title -->
+              <h6 class="listing-title"><%= listing.title %></h6>
+
+              <!-- Property details -->
+              <div class="listing-details">
+                <% if (listing.maxGuests) { %>
+                  <span class="detail-item">
+                    <i class="fa-solid fa-user-group"></i>
+                    <%= listing.maxGuests %> <%= listing.maxGuests === 1 ? 'guest' : 'guests' %>
+                  </span>
+                <% } %>
+                <% if (listing.bedrooms) { %>
+                  <span class="detail-item">
+                    <i class="fa-solid fa-bed"></i>
+                    <%= listing.bedrooms %> <%= listing.bedrooms === 1 ? 'bed' : 'beds' %>
+                  </span>
+                <% } %>
+              </div>
+
+              <!-- Rating and reviews -->
+              <div class="listing-rating-row">
+                <% if (reviews.length > 0) { %>
+                  <div class="listing-rating">
+                    <i class="fa-solid fa-star"></i>
+                    <span class="rating-value"><%= avgRating.toFixed(2) %></span>
+                    <span class="rating-count">(<%= reviews.length %>)</span>
+                  </div>
+                <% } else { %>
+                  <div class="listing-rating no-reviews">
+                    <i class="fa-regular fa-star"></i>
+                    <span class="rating-value">No reviews yet</span>
+                  </div>
+                <% } %>
+              </div>
+
+              <!-- Price per night with GST note -->
+              <div class="listing-price-container">
+                <p class="listing-price">
+                  <span class="price-amount">₹<%= listing.price.toLocaleString("en-IN") %></span>
+                  <span class="price-period">/ night</span>
+                </p>
+                <p class="tax-info">+18% GST</p>
+              </div>
+            </div>
+
+          </a>
+
+        </div>
+      </div>
+
+    <% }) %>
+
+  </div>
+</div>
+
+<% } %>
+

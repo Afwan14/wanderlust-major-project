@@ -1,45 +1,194 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <!-- ========================================
+         META TAGS & CHARACTER ENCODING
+         ======================================== -->
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Wanderlust</title>
-    <link rel="stylesheet" href="/css/style.css">
-    <link 
-        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
-        rel="stylesheet"
-        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" 
-        crossorigin="anonymous"
-    >
-    <link 
-        rel="stylesheet" 
-        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" 
-        integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="             crossorigin="anonymous" 
-        referrerpolicy="no-referrer" 
-    />
-    
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="/css/rating.css">
-    <link href="https://api.mapbox.com/mapbox-gl-js/v3.18.1/mapbox-gl.css" rel="stylesheet">
-    <script src="https://api.mapbox.com/mapbox-gl-js/v3.18.1/mapbox-gl.js"></script>
-</head>
-<body>
-    <%- include("../includes/navbar.ejs") %>
 
+    <!-- ========================================
+         CUSTOM STYLESHEETS
+         ======================================== -->
+    <link rel="stylesheet" href="/css/style.css" />
+
+    <!-- ========================================
+         BOOTSTRAP CSS FRAMEWORK
+         Bootstrap 5.3.8 - Provides responsive grid, components, utilities
+         ======================================== -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB"
+      crossorigin="anonymous"
+    />
+
+    <!-- ========================================
+         FONT AWESOME ICONS
+         Font Awesome 7.0.1 - Icon library for UI elements
+         ======================================== -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
+      integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+
+    <!-- ========================================
+         GOOGLE FONTS
+         Plus Jakarta Sans - Custom typography font
+         ======================================== -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- ========================================
+         COMPONENT-SPECIFIC STYLESHEETS
+         ======================================== -->
+
+    <!-- Rating Component - Star rating display styles -->
+    <link rel="stylesheet" href="/css/rating.css" />
+
+    <!-- ========================================
+         MAPBOX GL JS
+         Mapbox 3.18.1 - Interactive mapping library
+         ======================================== -->
+    <link
+      href="https://api.mapbox.com/mapbox-gl-js/v3.18.1/mapbox-gl.css"
+      rel="stylesheet"
+    />
+
+    <!-- ========================================
+         MODULAR CSS ORGANIZATION
+         ======================================== -->
+
+    <!-- Base styles - Layout, typography, general styling -->
+    <link rel="stylesheet" href="/css/base.css" />
+
+    <!-- Navbar - Navigation bar styling -->
+    <link rel="stylesheet" href="/css/navbar.css" />
+
+    <!-- Footer - Footer section styling -->
+    <link rel="stylesheet" href="/css/footer.css" />
+
+    <!-- Components - Reusable UI elements (buttons, toast, badges) -->
+    <link rel="stylesheet" href="/css/components.css" />
+
+    <!-- ========================================
+         MAPBOX GL JS SCRIPT
+         ======================================== -->
+    <script src="https://api.mapbox.com/mapbox-gl-js/v3.18.1/mapbox-gl.js"></script>
+  </head>
+  <body data-map-token="<%= process.env.MAP_TOKEN %>">
+    <!-- ========================================
+         NAVIGATION BAR
+         ======================================== -->
+    <%- include("../partials/navbar.ejs") %>
+
+    <!-- ========================================
+         MAIN CONTENT CONTAINER
+         ======================================== -->
     <div class="container">
-        <%- include("../includes/flash.ejs") %>
-        <%- body %>
+      <!-- Notifications - Success/Error toasts -->
+      <%- include("../partials/toast.ejs") %>
+
+      <!-- Page-specific content -->
+      <%- body %>
     </div>
 
-    <%- include("../includes/footer.ejs") %>
-    
-    <script 
-        src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" 
-        integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" 
-        crossorigin="anonymous">
-    </script>
-    <script src="/JS/script.js"></script>
-</body>
+    <!-- ========================================
+         DELETE CONFIRMATION MODAL
+         Bootstrap Modal for listing deletion confirmation
+         ======================================== -->
+    <div class="modal fade" id="deleteModal" tabindex="-1">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <!-- Modal Header -->
+          <div class="modal-header">
+            <h5 class="modal-title">Delete listing</h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+            ></button>
+          </div>
+
+          <!-- Modal Body -->
+          <div class="modal-body">
+            Are you sure you want to delete this listing?
+          </div>
+
+          <!-- Modal Footer -->
+          <div class="modal-footer">
+            <button class="btn btn-secondary" data-bs-dismiss="modal">
+              Cancel
+            </button>
+            <button class="btn btn-danger" id="confirmDeleteBtn">Delete</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ========================================
+         TOAST NOTIFICATION COMPONENT
+         Auto-hiding notification for user feedback (success/error messages)
+         ======================================== -->
+    <div id="toast" class="toast-notification">
+      <span id="toast-message"></span>
+    </div>
+
+    <!-- Wishlist Toast -->
+    <div id="wishlist-toast" class="wishlist-toast">
+      <span id="wishlist-toast-text"></span>
+    </div>
+
+    <!-- ========================================
+         FOOTER
+         ======================================== -->
+    <%- include("../partials/footer.ejs") %>
+
+    <!-- ========================================
+         EXTERNAL JAVASCRIPT LIBRARIES
+         ======================================== -->
+
+    <!-- ========================================
+         BOOTSTRAP JS BUNDLE
+         Bootstrap 5.3.8 - Provides interactive component functionality
+         Includes Popper.js for dropdowns, tooltips, and modals
+         ======================================== -->
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+      crossorigin="anonymous"
+    ></script>
+
+    <!-- ========================================
+         APPLICATION JAVASCRIPT SCRIPTS
+         ======================================== -->
+
+    <script src="/js/boilerplate-data.js"></script>
+
+    <!-- Listing Page - Delete functionality and toast notifications -->
+    <script src="/js/listing.js"></script>
+
+    <!-- Main Script - General site interactions
+         - Form validation
+         - Dropdowns (category, filter)
+         - Price calculation
+         - Review submission
+         - Menu toggles
+    -->
+    <script src="/js/script.js"></script>
+
+    <!-- Map Initialization - Mapbox map setup for listing location display -->
+    <script src="/js/map.js"></script>
+
+    <!-- wishlist toggle script -->
+    <script src="/js/wishlist.js"></script>
+  </body>
 </html>

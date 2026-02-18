@@ -1,42 +1,112 @@
 <% layout("/layouts/boilerplate") %>
+<head>
+  <!-- Authentication page specific styles -->
+  <link rel="stylesheet" href="/css/auth.css" />
+</head>
 
-<div class="row mt-3">
-    <h1 class="col-6 offset-3">Sign Up on Wanderlust</h1>
-    <div class="col-6 offset-3">
-        <form action="/signup" method="POST" class="needs-validation" novalidate>
-            <div class="mb-3">
-                <label for="username" class="form-label">Username</label>
-                <input type="text" name="username" class="form-control" id="username" required>
-                <div class="valid-feedback">
-                    Name looks good!
-                </div>
-                <div class="invalid-feedback">
-                    Relevant Name is required!
-                </div>
-            </div>
+<!-- ========================================
+     USER SIGNUP PAGE
+     Account registration form for new users
+     ======================================== -->
+<div
+  class="container d-flex justify-content-center align-items-center auth-min-vh"
+>
+  <div class="col-md-6 col-lg-5">
+    <!-- Signup Form Card with Centered Layout -->
+    <div class="card shadow-sm rounded-4 p-4 border-0">
+      <!-- ========================================
+           PAGE HEADER
+           Welcome section and signup instructions
+           ======================================== -->
+      <!-- Page title -->
+      <h2 class="text-center fw-semibold mb-1">Sign up on Wanderlust</h2>
 
-            <div class="mb-3">
-                <label for="email" class="form-label">Email</label>
-                <input type="email" name="email" class="form-control" id="email" required>
-                <div class="valid-feedback">
-                    Email looks good!
-                </div>
-                <div class="invalid-feedback">
-                    Invalid Email!
-                </div>
-            </div>
+      <!-- Subtitle -->
+      <p class="text-center text-muted mb-4">
+        Create your account to start exploring stays
+      </p>
 
-            <div class="mb-3">
-                <label for="password" class="form-label">Password</label>
-                <input type="password" name="password" class="form-control" id="password" required>
-                <div class="valid-feedback">
-                    Password looks good!
-                </div>
-                <div class="invalid-feedback">
-                    Password is required!
-                </div>
-            </div>
-            <button class="btn btn-success">Sign Up</button>
-        </form>
+      <!-- ========================================
+           SIGNUP FORM
+           User registration with validation
+           ======================================== -->
+      <!-- Signup form - POST to /signup -->
+      <form action="/signup" method="POST" class="needs-validation" novalidate>
+        <!-- ========================================
+             CREDENTIALS SECTION
+             Username, email, and password fields
+             ======================================== -->
+        <!-- Username Input -->
+        <div class="mb-3">
+          <label for="username" class="form-label">Username</label>
+          <input
+            type="text"
+            name="username"
+            class="form-control"
+            id="username"
+            required
+          />
+          <div class="invalid-feedback">Username is required</div>
+        </div>
+
+        <!-- Email Input -->
+        <div class="mb-3">
+          <label for="email" class="form-label">Email</label>
+          <input
+            type="email"
+            name="email"
+            class="form-control"
+            id="email"
+            required
+          />
+          <div class="invalid-feedback">Please enter a valid email</div>
+        </div>
+
+        <!-- Password Input -->
+        <div class="mb-3">
+          <label for="password" class="form-label">Password</label>
+          <input
+            type="password"
+            name="password"
+            class="form-control"
+            id="password"
+            required
+            minlength="8"
+          />
+          <div class="form-text small">
+            Must be 8+ characters with uppercase, lowercase, number, and special
+            character (@$!%*?&)
+          </div>
+          <div class="invalid-feedback">Password is required</div>
+        </div>
+
+        <!-- Confirm Password Input -->
+        <div class="mb-4">
+          <label for="confirmPassword" class="form-label">
+            Confirm Password
+          </label>
+          <input
+            type="password"
+            name="confirmPassword"
+            class="form-control"
+            id="confirmPassword"
+            required
+          />
+          <div class="invalid-feedback">Passwords must match</div>
+        </div>
+
+        <!-- ========================================
+             FORM SUBMISSION
+             ======================================== -->
+        <!-- Submit Button - Creates new user account -->
+        <button class="btn btn-danger w-100 py-2">Create Account</button>
+      </form>
+
+      <!-- Login Link - Redirect to login for existing users -->
+      <p class="text-center small mt-3 mb-0">
+        Already have an account?
+        <a href="/login" class="text-danger fw-semibold">Log in</a>
+      </p>
     </div>
+  </div>
 </div>

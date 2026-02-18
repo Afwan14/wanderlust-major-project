@@ -1,0 +1,297 @@
+<% layout("/layouts/boilerplate") %>
+<head>
+  <!-- Listing component styles -->
+  <link rel="stylesheet" href="/css/listing-cards.css" />
+  <link rel="stylesheet" href="/css/card-text.css" />
+  <link rel="stylesheet" href="/css/filter-bar.css" />
+  <link rel="stylesheet" href="/css/hero-image.css" />
+  <link rel="stylesheet" href="/css/listing-details.css" />
+  <link rel="stylesheet" href="/css/review-form.css" />
+  <link rel="stylesheet" href="/css/booking-card.css" />
+  <link rel="stylesheet" href="/css/listing-responsive.css" />
+
+  <!-- Other styles -->
+  <link rel="stylesheet" href="/css/reviews.css" />
+  <link rel="stylesheet" href="/css/map.css" />
+</head>
+<div
+  id="showOldPageData"
+  data-map-token="<%= process.env.MAP_TOKEN %>"
+  data-listing="<%- encodeURIComponent(JSON.stringify(listing)) %>"
+  hidden
+></div>
+
+<div class="container py-5">
+  <!-- HEADER SECTION -->
+  <div class="listing-header-section mb-5">
+    <h1 class="listing-title"><%= listing.title %></h1>
+
+    <div class="listing-meta d-flex align-items-center gap-3 flex-wrap mb-3">
+      <div class="location-badge">
+        <i class="fa-solid fa-location-dot"></i>
+        <span>
+          <%= listing.location %>
+          ,
+          <%= listing.country %>
+        </span>
+      </div>
+
+      <% if (listing.reviews.length > 0) { %>
+      <div class="rating-badge-small">
+        <i class="fa-solid fa-star"></i>
+        <span><%= avgRating.toFixed(1) %></span>
+        <span class="review-count">
+          (<%= listing.reviews.length %> <%= listing.reviews.length === 1 ?
+          'review' : 'reviews' %>)
+        </span>
+      </div>
+      <% } %>
+    </div>
+  </div>
+
+  <!-- HERO IMAGE GALLERY -->
+  <div class="hero-image-container mb-5 rounded-4 overflow-hidden shadow-lg">
+    <img
+      src="<%= listing.image.url %>"
+      class="hero-image"
+      alt="<%= listing.title %>"
+    />
+  </div>
+
+  <!-- MAIN TWO-COLUMN LAYOUT -->
+  <div class="row align-items-start">
+    <!-- LEFT COLUMN -->
+    <div class="col-lg-8">
+      <!-- LISTING DETAILS CARD -->
+      <div class="details-card mb-5 pb-5">
+        <div class="listing-details">
+          <h2 class="details-title">
+            <%= listing.maxGuests %> <%= listing.maxGuests === 1 ? "guest" :
+            "guests" %> · <%= listing.bedrooms %> <%= listing.bedrooms === 1 ?
+            "bedroom" : "bedrooms" %> · <%= listing.beds %> <%= listing.beds ===
+            1 ? "bed" : "beds" %> · <%= listing.bathrooms %> <%=
+            listing.bathrooms === 1 ? "bathroom" : "bathrooms" %>
+          </h2>
+        </div>
+
+        <!-- CATEGORY BADGE -->
+        <p class="category-section mt-4">
+          <span class="category-label">Category:</span>
+          <span class="category-badges">
+            <% listing.category.forEach(cat => { %>
+            <span class="category-badge"><%= cat %></span>
+            <% }); %>
+          </span>
+        </p>
+
+        <!-- DESCRIPTION -->
+        <p class="listing-description mt-4">
+          <strong>About this place</strong>
+          <br />
+          <%= listing.description %>
+        </p>
+
+        <hr class="divider" />
+      </div>
+
+      <!-- REVIEW FORM -->
+      <% if (canReview) { %>
+      <div class="review-form-section mb-5 pb-5">
+        <h3 class="section-title">Share your experience</h3>
+
+        <form
+          id="reviewForm"
+          class="needs-validation"
+          novalidate
+          data-listing-id="<%= listing._id %>"
+        >
+          <div class="form-group mb-4">
+            <label class="form-label fw-bold">Rate your stay</label>
+
+            <fieldset class="star-rating-input">
+              <% for (let i = 1; i <= 5; i++) { %>
+              <input
+                type="radio"
+                id="rating<%= i %>"
+                name="review[rating]"
+                value="<%= i %>"
+                required
+                class="star-input"
+              />
+              <label for="rating<%= i %>" class="star-label">
+                <i class="fa-solid fa-star"></i>
+              </label>
+              <% } %>
+            </fieldset>
+            <div class="invalid-feedback d-block d-none" id="ratingError">
+              Please select a rating.
+            </div>
+          </div>
+
+          <div class="form-group mb-4">
+            <label class="form-label fw-bold">Tell us more</label>
+            <textarea
+              name="review[comment]"
+              class="form-control review-textarea"
+              rows="4"
+              placeholder="Share your experience... (optional)"
+              required
+            ></textarea>
+            <div class="invalid-feedback d-block d-none" id="commentError">
+              Please enter a comment.
+            </div>
+            <small class="text-muted">
+              Be honest and helpful to other travelers
+            </small>
+          </div>
+
+          <button class="btn btn-submit-review" type="submit">
+            Submit Review
+          </button>
+        </form>
+      </div>
+    </div>
+
+    <!-- RIGHT COLUMN -->
+    <div class="col-lg-4">
+      <!-- BOOKING CARD -->
+      <div class="booking-card-container booking-sticky">
+        <div class="booking-card rounded-4 shadow-lg p-4">
+          <div class="price-section mb-4">
+            <h2 class="price-display">
+              ₹
+              <span class="price-amount">
+                <%= listing.price.toLocaleString("en-IN") %>
+              </span>
+              <span class="price-label">per night</span>
+            </h2>
+          </div>
+
+          <!-- OWNER VIEW -->
+          <% if (currUser && currUser._id.equals(listing.owner._id)) { %>
+          <a href="/listings/my" class="btn btn-manage w-100">
+            <i class="fa-solid fa-sliders"></i>
+            Manage listing
+          </a>
+
+          <!-- LOGGED-IN USER (NOT OWNER) -->
+          <% } else if (currUser) { %>
+          <form
+            action="/listings/<%= listing._id %>/book"
+            method="POST"
+            class="booking-form"
+          >
+            <div class="form-group mb-3">
+              <label class="form-label small fw-bold">CHECK-IN</label>
+              <input
+                type="date"
+                name="booking[checkIn]"
+                class="form-control booking-input"
+                required
+              />
+            </div>
+
+            <div class="form-group mb-4">
+              <label class="form-label small fw-bold">CHECK-OUT</label>
+              <input
+                type="date"
+                name="booking[checkOut]"
+                class="form-control booking-input"
+                required
+              />
+            </div>
+
+            <button class="btn btn-book w-100 fw-bold" type="submit">
+              <i class="fa-solid fa-calendar-check"></i>
+              Book Now
+            </button>
+          </form>
+
+          <!-- NOT LOGGED IN -->
+          <% } else { %>
+          <a href="/login" class="btn btn-book w-100 fw-bold mb-3">
+            <i class="fa-solid fa-calendar-check"></i>
+            Book Now
+          </a>
+
+          <p class="text-muted small text-center mt-2">
+            Log in to book this place
+          </p>
+
+          <% } %>
+        </div>
+      </div>
+
+      <!-- =========================
+       GUEST FAVOURITE
+  ========================= -->
+      <div class="guest-favourite">
+        <div class="rating-summary my-5 text-center">
+          <div class="rating-badge mb-2">
+            <span class="laurel">🌿</span>
+            <span class="rating-number">
+              <%= listing.reviews.length === 0 ? "0.0" : avgRating.toFixed(1) %>
+            </span>
+            <span
+              class="laurel <%= listing.reviews.length === 0 ? 'opacity-25' : '' %>"
+            >
+              🌿
+            </span>
+          </div>
+
+          <h5 class="fw-semibold mt-2 rating-text">
+            <% if (listing.reviews.length === 0) { %> No ratings yet <% } else
+            if (avgRating >= 4.0) { %> Highly rated by guests
+            <% } else { %>
+            Rated by guests
+            <% } %>
+          </h5>
+
+          <p class="text-muted small">
+            <%= listing.reviews.length === 0 ? "Be the first to review this
+            place" : "Based on ratings, reviews and reliability" %>
+          </p>
+        </div>
+      </div>
+
+      <!-- =========================
+       REVIEWS SECTION
+  ========================= -->
+      <% if (listing.reviews.length > 0) { %>
+      <hr class="my-4" />
+      <h4 class="mb-4">Reviews</h4>
+
+      <div id="reviews" class="reviews-grid">
+        <% listing.reviews.forEach(review => { %>
+        <div class="review-card border-bottom pb-2 mb-3">
+          <strong><%= review.author.username %></strong>
+
+          <div class="text-muted">
+            <%= "★".repeat(review.rating) %><%= "☆".repeat(5 - review.rating) %>
+          </div>
+
+          <p><%= review.comment %></p>
+
+          <% if (currUser && currUser._id.equals(review.author._id)) { %>
+          <form
+            method="POST"
+            action="/listings/<%= listing._id %>/reviews/<%= review._id %>?_method=DELETE"
+          >
+            <button class="btn btn-sm btn-outline-dark">Delete</button>
+          </form>
+          <% } %>
+        </div>
+        <% }) %>
+      </div>
+      <% } %>
+
+      <!-- =========================
+       MAP
+  ========================= -->
+      <hr class="my-5" />
+      <h4>Where you’ll be</h4>
+      <div id="map" class="rounded-4"></div>
+      <script src="/js/show-old.js"></script>
+    </div>
+  </div>
+</div>
