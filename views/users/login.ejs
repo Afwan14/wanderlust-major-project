@@ -14,7 +14,7 @@
     <div class="text-center mb-4">
       <i class="fa-regular fa-compass auth-logo"></i>
       <h3 class="mt-2">Login to Wanderlust</h3>
-      <p class="text-muted small">
+      <p class="auth-subtitle small">
         Welcome back, explore stays around the world
       </p>
     </div>
@@ -44,25 +44,34 @@
           placeholder="Enter your password"
           required
         />
+        <div class="form-check mt-2">
+          <input
+            class="form-check-input toggle-password"
+            type="checkbox"
+            id="showLoginPassword"
+            data-target="password"
+          />
+          <label class="form-check-label" for="showLoginPassword">
+            Show password
+          </label>
+        </div>
         <div class="invalid-feedback">Password is required</div>
       </div>
 
       <!-- Forgot Password Link -->
       <div class="text-end mb-2">
-        <a href="/forgot-password" class="text-danger small">
-          Forgot password?
-        </a>
+        <a href="/forgot-password" class="auth-link small">Forgot password?</a>
       </div>
 
       <!-- Submit Button - Triggers form validation and login -->
-      <button class="btn btn-danger w-100 mt-2">Log in</button>
+      <button class="btn btn-primary-wl w-100 mt-2">Log in</button>
     </form>
 
     <hr />
     <!-- Signup Link - Redirect new users to signup page -->
     <p class="text-center small mb-0">
       Don't have an account?
-      <a href="/signup" class="text-danger fw-semibold">Sign up</a>
+      <a href="/signup" class="auth-link">Sign up</a>
     </p>
   </div>
 </div>

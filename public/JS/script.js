@@ -38,6 +38,23 @@
 
 document.addEventListener("DOMContentLoaded", () => {
   /* ========================================
+     SHOW / HIDE PASSWORD TOGGLE
+     ======================================== */
+
+  const passwordToggles = document.querySelectorAll(".toggle-password");
+
+  passwordToggles.forEach(toggle => {
+    const targetId = toggle.getAttribute("data-target");
+    const targetInput = targetId ? document.getElementById(targetId) : null;
+
+    if (!targetInput) return;
+
+    toggle.addEventListener("change", () => {
+      targetInput.type = toggle.checked ? "text" : "password";
+    });
+  });
+
+  /* ========================================
      CATEGORY FILTER DROPDOWN
      ======================================== */
 

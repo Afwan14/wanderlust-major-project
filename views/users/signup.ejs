@@ -8,30 +8,29 @@
      USER SIGNUP PAGE
      Account registration form for new users
      ======================================== -->
-<div
-  class="container d-flex justify-content-center align-items-center auth-min-vh"
->
-  <div class="col-md-6 col-lg-5">
-    <!-- Signup Form Card with Centered Layout -->
-    <div class="card shadow-sm rounded-4 p-4 border-0">
-      <!-- ========================================
+<div class="auth-wrapper">
+  <div class="auth-card">
+    <!-- ========================================
            PAGE HEADER
            Welcome section and signup instructions
            ======================================== -->
+    <div class="text-center mb-4">
+      <i class="fa-regular fa-compass auth-logo"></i>
       <!-- Page title -->
       <h2 class="text-center fw-semibold mb-1">Sign up on Wanderlust</h2>
 
       <!-- Subtitle -->
-      <p class="text-center text-muted mb-4">
+      <p class="text-center auth-subtitle mb-0">
         Create your account to start exploring stays
       </p>
+    </div>
 
-      <!-- ========================================
+    <!-- ========================================
            SIGNUP FORM
            User registration with validation
            ======================================== -->
-      <!-- Signup form - POST to /signup -->
-      <form action="/signup" method="POST" class="needs-validation" novalidate>
+    <!-- Signup form - POST to /signup -->
+    <form action="/signup" method="POST" class="needs-validation" novalidate>
         <!-- ========================================
              CREDENTIALS SECTION
              Username, email, and password fields
@@ -72,12 +71,27 @@
             id="password"
             required
             minlength="8"
+            pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&#])[A-Za-z\d@$!%*?&#]+$"
+            title="Password must be at least 8 characters and include uppercase, lowercase, number, and one special character (@$!%*?&#)"
           />
           <div class="form-text small">
             Must be 8+ characters with uppercase, lowercase, number, and special
-            character (@$!%*?&)
+            character (@$!%*?&#)
           </div>
-          <div class="invalid-feedback">Password is required</div>
+          <div class="form-check mt-2">
+            <input
+              class="form-check-input toggle-password"
+              type="checkbox"
+              id="showSignupPassword"
+              data-target="password"
+            />
+            <label class="form-check-label" for="showSignupPassword">
+              Show password
+            </label>
+          </div>
+          <div class="invalid-feedback">
+            Enter a valid password as per the required rules
+          </div>
         </div>
 
         <!-- Confirm Password Input -->
@@ -92,6 +106,17 @@
             id="confirmPassword"
             required
           />
+          <div class="form-check mt-2">
+            <input
+              class="form-check-input toggle-password"
+              type="checkbox"
+              id="showSignupConfirmPassword"
+              data-target="confirmPassword"
+            />
+            <label class="form-check-label" for="showSignupConfirmPassword">
+              Show confirm password
+            </label>
+          </div>
           <div class="invalid-feedback">Passwords must match</div>
         </div>
 
@@ -99,14 +124,13 @@
              FORM SUBMISSION
              ======================================== -->
         <!-- Submit Button - Creates new user account -->
-        <button class="btn btn-danger w-100 py-2">Create Account</button>
-      </form>
+        <button class="btn btn-primary-wl w-100 py-2">Create Account</button>
+    </form>
 
-      <!-- Login Link - Redirect to login for existing users -->
-      <p class="text-center small mt-3 mb-0">
-        Already have an account?
-        <a href="/login" class="text-danger fw-semibold">Log in</a>
-      </p>
-    </div>
+    <!-- Login Link - Redirect to login for existing users -->
+    <p class="text-center small mt-3 mb-0">
+      Already have an account?
+      <a href="/login" class="auth-link">Log in</a>
+    </p>
   </div>
 </div>

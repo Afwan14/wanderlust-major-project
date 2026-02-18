@@ -3,9 +3,10 @@
      Displays temporary success/error notifications using toast style
      ======================================== -->
 
-<% // Get flash messages from template variables (set by controller) const
-successMsg = typeof success !== "undefined" ? success : []; const errorMsg =
-typeof error !== "undefined" ? error : []; %>
+<%
+  const successMsg = Array.isArray(success) ? success : [];
+  const errorMsg = Array.isArray(error) ? error : [];
+%>
 
 <div id="toast-container"></div>
 
@@ -16,4 +17,4 @@ typeof error !== "undefined" ? error : []; %>
   hidden
 ></div>
 
-<script src="/js/toast.js"></script>
+<script src="/JS/toast.js"></script>

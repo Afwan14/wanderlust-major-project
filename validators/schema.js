@@ -134,14 +134,14 @@ module.exports.signupSchema = joi
       .min(8)
       .pattern(
         new RegExp(
-          "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]"
+          "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&#])[A-Za-z\\d@$!%*?&#]+$"
         )
       )
       .required()
       .messages({
         "string.min": "Password must be at least 8 characters long",
         "string.pattern.base":
-          "Password must contain at least one uppercase letter, one lowercase letter, one number, and one special character (@$!%*?&)",
+          "Password must contain at least one uppercase letter, one lowercase letter, one number, and one special character (@$!%*?&#)",
         "any.required": "Password is required",
       }),
     confirmPassword: joi
@@ -169,14 +169,14 @@ module.exports.resetPasswordSchema = joi
       .min(8)
       .pattern(
         new RegExp(
-          "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]"
+          "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&#])[A-Za-z\\d@$!%*?&#]+$"
         )
       )
       .required()
       .messages({
         "string.min": "Password must be at least 8 characters long",
         "string.pattern.base":
-          "Password must contain at least one uppercase letter, one lowercase letter, one number, and one special character (@$!%*?&)",
+          "Password must contain at least one uppercase letter, one lowercase letter, one number, and one special character (@$!%*?&#)",
         "any.required": "Password is required",
       }),
     confirmPassword: joi

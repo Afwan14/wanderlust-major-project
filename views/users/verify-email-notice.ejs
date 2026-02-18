@@ -1,7 +1,7 @@
-<% layout("/layouts/boilerplate") -%>
+<% layout("/layouts/boilerplate") %>
 
 <head>
-  <link rel="stylesheet" href="/css/verify-email-notice.css" />
+  <link rel="stylesheet" href="/css/auth.css" />
 </head>
 
 <!-- ========================================
@@ -9,88 +9,59 @@
      Shows after signup to inform users about email verification
      ======================================== -->
 
-<div class="row mt-5">
-  <div class="col-12 col-md-8 offset-md-2 col-lg-6 offset-lg-3">
-    <!-- Main Card -->
-    <div class="card shadow-lg border-0">
-      <div class="card-body p-5 text-center">
-        <!-- Success Icon -->
-        <div class="mb-4">
-          <i class="fas fa-envelope-circle-check verify-mail-icon"></i>
-        </div>
-
-        <!-- Main Heading -->
-        <h2 class="card-title mb-3 verify-title">Check Your Email!</h2>
-
-        <!-- Email Address Display -->
-        <p class="mb-4 verify-subtitle">We've sent a verification link to:</p>
-        <p class="mb-4 verify-email-text"><%= email %></p>
-
-        <!-- Instructions -->
-        <div class="alert alert-info mb-4 verify-info-alert">
-          <h5 class="verify-info-title">
-            <i class="fas fa-info-circle"></i>
-            Next Steps:
-          </h5>
-          <ol class="text-start mb-0 verify-info-list">
-            <li class="mb-2">Open your email inbox</li>
-            <li class="mb-2">
-              Look for an email from
-              <strong>Wanderlust</strong>
-            </li>
-            <li class="mb-2">Click the verification link in the email</li>
-            <li>You'll be automatically logged in!</li>
-          </ol>
-        </div>
-
-        <!-- Additional Info -->
-        <div class="mb-4">
-          <p class="verify-additional-info">
-            <i class="fas fa-clock"></i>
-            The verification link will expire in
-            <strong>24 hours</strong>
-          </p>
-        </div>
-
-        <!-- Didn't Receive Email Section -->
-        <div class="card verify-help-card">
-          <div class="card-body">
-            <h6 class="verify-help-title">Didn't receive the email?</h6>
-            <ul class="text-start mb-3 verify-help-list">
-              <li>Check your spam or junk folder</li>
-              <li>Make sure you entered the correct email address</li>
-              <li>Wait a few minutes and refresh your inbox</li>
-            </ul>
-
-            <!-- Resend Email Form -->
-            <form action="/resend-verification" method="POST" class="mt-3">
-              <input type="hidden" name="email" value="<%= email %>" />
-              <button
-                type="submit"
-                class="btn btn-outline-primary btn-sm verify-resend-btn"
-              >
-                <i class="fas fa-paper-plane"></i>
-                Resend Email
-              </button>
-            </form>
-          </div>
-        </div>
-
-        <!-- Back to Login Link -->
-        <div class="mt-4">
-          <a href="/login" class="text-decoration-none verify-back-link">
-            <i class="fas fa-arrow-left"></i>
-            Back to Login
-          </a>
-        </div>
-      </div>
+<div class="auth-wrapper">
+  <div class="auth-card auth-card-wide text-center">
+    <div class="mb-4">
+      <i class="fa-solid fa-envelope-circle-check auth-logo"></i>
+      <h2 class="mt-3 mb-2">Check Your Email!</h2>
+      <p class="auth-subtitle mb-1">We've sent a verification link to:</p>
+      <p class="auth-email mb-0"><%= email %></p>
     </div>
 
-    <!-- Help Section -->
-    <div class="text-center mt-4">
-      <p class="verify-help-footer">
+    <div class="auth-info-box text-start mb-4">
+      <h6 class="auth-info-title mb-3">
+        <i class="fa-solid fa-circle-info"></i>
+        Next Steps
+      </h6>
+      <ol class="mb-0 ps-3">
+        <li class="mb-2">Open your email inbox</li>
+        <li class="mb-2">
+          Look for an email from
+          <strong>Wanderlust</strong>
+        </li>
+        <li class="mb-2">Click the verification link in the email</li>
+        <li>You'll be automatically logged in</li>
+      </ol>
+    </div>
+
+    <p class="auth-muted mb-4">
+      <i class="fa-regular fa-clock"></i>
+      The verification link will expire in
+      <strong>24 hours</strong>
+    </p>
+
+    <div class="auth-help-box text-start mb-4">
+      <h6 class="mb-2">Didn't receive the email?</h6>
+      <ul class="mb-3 ps-3">
+        <li>Check your spam or junk folder</li>
+        <li>Make sure you entered the correct email address</li>
+        <li>Wait a few minutes and refresh your inbox</li>
+      </ul>
+
+      <form action="/resend-verification" method="POST" class="mt-2">
+        <input type="hidden" name="email" value="<%= email %>" />
+        <button type="submit" class="btn btn-outline-wl btn-sm-wl">
+          <i class="fa-solid fa-paper-plane"></i>
+          Resend Email
+        </button>
+      </form>
+    </div>
+
+    <div class="d-flex flex-column gap-2">
+      <a href="/login" class="auth-link">Back to Login</a>
+      <p class="small mb-0 auth-muted">
         Having trouble?
-        <a href="/help" class="verify-support-link">Contact Support</a>
+        <a href="/help" class="auth-link">Contact Support</a>
       </p>
     </div>
   </div>

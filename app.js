@@ -14,6 +14,7 @@ const express = require("express");
 const app = express();
 const mongoose = require("mongoose");
 const path = require("path");
+const fs = require("fs");
 const methodOverride = require("method-override");
 const ejsMate = require("ejs-mate");
 const ExpressError = require("./utils/ExpressError.js");
@@ -50,8 +51,31 @@ async function connectDatabase() {
       : "Cloud MongoDB (Atlas)";
     console.info(`✅ Connected to ${dbType} successfully`);
   } catch (err) {
+    const isSrvDnsIssue =
+      err?.message?.includes("querySrv") ||
+      err?.message?.includes("ENOTFOUND") ||
+      err?.message?.includes("ECONNREFUSED");
+
+    if (
+      process.env.NODE_ENV !== "production" &&
+      dbUrl.startsWith("mongodb+srv://") &&
+      isSrvDnsIssue
+    ) {
+      console.warn(
+        "⚠️ Atlas SRV DNS lookup failed locally. Falling back to local MongoDB at mongodb://127.0.0.1:27017/wanderlust"
+      );
+
+      try {
+        await mongoose.connect(localDbUrl);
+        console.info("✅ Connected to Local MongoDB successfully");
+        return;
+      } catch (localErr) {
+        console.error("❌ Local MongoDB fallback failed:", localErr.message);
+      }
+    }
+
     console.error("❌ Database connection error:", err.message);
-    process.exit(1); // Exit immediately in production
+    process.exit(1); // Exit immediately when DB is unavailable
   }
 }
 
@@ -68,7 +92,19 @@ app.use(express.json());
 app.use(methodOverride("_method"));
 
 // Serve static files from public directory
-app.use(express.static(path.join(__dirname, "/public")));
+const publicDir = path.join(__dirname, "public");
+app.use(express.static(publicDir));
+
+const upperJsDir = path.join(publicDir, "JS");
+const lowerJsDir = path.join(publicDir, "js");
+
+if (fs.existsSync(upperJsDir)) {
+  app.use("/JS", express.static(upperJsDir));
+  app.use("/js", express.static(upperJsDir));
+} else if (fs.existsSync(lowerJsDir)) {
+  app.use("/JS", express.static(lowerJsDir));
+  app.use("/js", express.static(lowerJsDir));
+}
 
 // ============================================
 // SESSION & STORE CONFIGURATION
@@ -109,6 +145,10 @@ const sessionOptions = {
 
 if (store) {
   sessionOptions.store = store;
+}
+
+if (process.env.NODE_ENV === "production") {
+  app.set("trust proxy", 1);
 }
 
 app.use(session(sessionOptions));

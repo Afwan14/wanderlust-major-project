@@ -149,7 +149,12 @@ module.exports.verifyEmail = async (req, res, next) => {
           "success",
           `🎉 Welcome to Wanderlust, ${user.username}! Your email has been verified successfully.`
         );
-        res.redirect("/listings");
+        const postVerifyRedirect =
+          process.env.POST_VERIFY_REDIRECT_URL ||
+          (process.env.NODE_ENV === "production"
+            ? "https://wanderlust-major-project-57mb.onrender.com/"
+            : "/");
+        res.redirect(postVerifyRedirect);
       });
     });
   } catch (e) {
