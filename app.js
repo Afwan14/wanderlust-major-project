@@ -3,7 +3,9 @@
 // ============================================
 
 // Load environment variables
-require("dotenv").config();
+if (process.env.NODE_ENV !== "production") {
+  require("dotenv").config();
+}
 
 // ============================================
 // IMPORTS: Core Dependencies
@@ -37,40 +39,19 @@ const bookingCreateRoutes = require("./routes/bookingCreate.js");
 const wishlistRoutes = require("./routes/wishlist.js");
 const helpRouter = require("./routes/help.js");
 
-// ============================================
-// DATABASE CONFIGURATION
-// ============================================
 const localDbUrl = "mongodb://127.0.0.1:27017/wanderlust";
-const primaryDbUrl = process.env.DB_URL || localDbUrl;
-let dbUrl = primaryDbUrl;
+const dbUrl = process.env.DB_URL || localDbUrl;
 
 async function connectDatabase() {
   try {
-    await mongoose.connect(primaryDbUrl);
-    dbUrl = primaryDbUrl;
+    await mongoose.connect(dbUrl);
     const dbType = dbUrl.includes("127.0.0.1")
       ? "Local MongoDB"
       : "Cloud MongoDB (Atlas)";
     console.info(`✅ Connected to ${dbType} successfully`);
-    return;
   } catch (err) {
-    console.error("❌ Database connection error:", err.message || err);
-
-    const shouldTryLocalFallback =
-      primaryDbUrl !== localDbUrl &&
-      (err?.code === "ECONNREFUSED" ||
-        err?.code === "ENOTFOUND" ||
-        err?.code === "ETIMEOUT");
-
-    if (!shouldTryLocalFallback) {
-      throw err;
-    }
-
-    console.warn("⚠️ Retrying with local MongoDB fallback...");
-
-    await mongoose.connect(localDbUrl);
-    dbUrl = localDbUrl;
-    console.info("✅ Connected to Local MongoDB fallback successfully");
+    console.error("❌ Database connection error:", err.message);
+    process.exit(1); // Exit immediately in production
   }
 }
 
